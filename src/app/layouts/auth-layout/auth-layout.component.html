@@ -1,16 +1,17 @@
 <div class="main-content">
   <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
-      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">
-        <img src="assets/img/brand/argon-white.png" />
+      <a class="navbar-brand">
+        <!-- <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']"> -->
+        <img src="assets/img/brand/LOGO_UNSA.png" />
       </a>
-      <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+      <!-- <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
          aria-controls="sidenav-collapse-main">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse"  [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+      </button> -->
+      <!-- <div class="collapse navbar-collapse"  [ngbCollapse]="isCollapsed" id="sidenav-collapse-main"> -->
         <!-- Collapse header -->
-        <div class="navbar-collapse-header d-md-none">
+        <!-- <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
               <a routerLinkActive="active" [routerLink]="['/dashboard']">
@@ -24,9 +25,9 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Navbar items -->
-        <ul class="navbar-nav ml-auto">
+        <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/dashboard']">
               <i class="ni ni-planet"></i>
@@ -51,8 +52,8 @@
               <span class="nav-link-inner--text">Profile</span>
             </a>
           </li>
-        </ul>
-      </div>
+        </ul> -->
+      <!-- </div> -->
     </div>
   </nav>
   <router-outlet></router-outlet>
@@ -62,16 +63,16 @@
     <div class="row align-items-center justify-content-xl-between">
       <div class="col-xl-6">
         <div class="copyright text-center text-xl-left text-muted">
-          &copy; {{ test | date: "yyyy" }} <a href="https://www.creative-tim.com?ref=ada-footer-auth-layout" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+          &copy; {{ test | date: "yyyy" }} <a href="https://www.creative-tim.com?ref=ada-footer-auth-layout" class="font-weight-bold ml-1" target="_blank">Universidad nacional de San Agustín</a>
         </div>
       </div>
       <div class="col-xl-6">
         <ul class="nav nav-footer justify-content-center justify-content-xl-end">
           <li class="nav-item">
-            <a href="https://www.creative-tim.com?ref=ada-footer-auth-layout" class="nav-link" target="_blank">Creative Tim</a>
+            <a href="https://www.creative-tim.com?ref=ada-footer-auth-layout" class="nav-link" target="_blank">Manuales</a>
           </li>
           <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation?ref=ada-footer-auth-layout" class="nav-link" target="_blank">About Us</a>
+            <a href="https://www.creative-tim.com/presentation?ref=ada-footer-auth-layout" class="nav-link" target="_blank">Acerca de nosotros</a>
           </li>
           <li class="nav-item">
             <a href="http://blog.creative-tim.com?ref=ada-footer-auth-layout" class="nav-link" target="_blank">Blog</a>
