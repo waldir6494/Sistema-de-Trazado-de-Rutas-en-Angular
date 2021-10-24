@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,11 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,  
+    private element: ElementRef,
+    private authenticationService: AuthenticationService, 
+    private router: Router) {
     this.location = location;
   }
 
@@ -31,6 +36,12 @@ export class NavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
+  }
+
+  public logout(){
+    console.log("salioo");
+    this.authenticationService.logout();
+    this.router.navigate(['juegos']);
   }
 
 }

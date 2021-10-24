@@ -1,8 +1,9 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TokenInterceptor } from './@interceptors/token.interceptor';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -12,7 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import { AuthGuard } from 'src/app/@guards/auth.guard';
+import { LoginGuard } from 'src/app/@guards/login.guard';
+import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
+import { JuegosModule } from './pages/juegos/juegos.module';
 
 @NgModule({
   imports: [
@@ -20,6 +24,7 @@ import { ComponentsModule } from './components/components.module';
     FormsModule,
     HttpClientModule,
     ComponentsModule,
+    JuegosModule,
     NgbModule,
     RouterModule,
     AppRoutingModule
@@ -29,7 +34,17 @@ import { ComponentsModule } from './components/components.module';
     AdminLayoutComponent,
     AuthLayoutComponent
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    LoginGuard,
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

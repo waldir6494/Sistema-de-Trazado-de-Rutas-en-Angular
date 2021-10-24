@@ -19,7 +19,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    HttpClientModule,
     NgbModule,
     ClipboardModule
   ],
