@@ -1,3 +1,3 @@
 <div>
-    <app-lista-juegos *ngIf = "juegos" [juegosPadre]="juegos"></app-lista-juegos>
+    <app-lista-juegos *ngIf = "juegos" [juegosPadre]="juegos" (getJuegoPagina)="getJuegoPagina($event)"></app-lista-juegos>
 </div>

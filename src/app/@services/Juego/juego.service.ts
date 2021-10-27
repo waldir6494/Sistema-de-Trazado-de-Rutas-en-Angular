@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HOSTSERVER } from 'src/app/@constants/HOSTSERVER';
 import { Juego } from 'src/app/@models/Juego/juego.model';
+import { JuegoPaginate } from 'src/app/@models/Juego/juego-paginate.model';
 
 /* import { HOSTSERVICE_MSSEGURIDAD_APP, HOSTSERVICE_MSDELIVERY, V_API } from '../../@constants/paths';
 import { Token } from 'src/app/@models/back-office/seguridad/token.model';
@@ -25,10 +26,16 @@ export class JuegoService {
         
     } */
     
-    getJuegosUsuario(id: string): Observable<Juego> {
-        const url = `${this.host}/listarJuego/${id}`;
+    getJuegosUsuario(id: string): Observable<JuegoPaginate> {
+        const url = `${this.host}/getAll/${id}`;
         return this.http
-                        .get<Juego>(url)
+                        .get<JuegoPaginate>(url)
+                        .pipe(catchError(this.handleError));
+    }
+
+    getJuegosPagina(url: string): Observable<JuegoPaginate> {
+        return this.http
+                        .get<JuegoPaginate>(url)
                         .pipe(catchError(this.handleError));
     }
 

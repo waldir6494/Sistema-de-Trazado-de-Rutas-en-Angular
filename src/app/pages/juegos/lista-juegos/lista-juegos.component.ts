@@ -1,14 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
-import Chart from 'chart.js';
-import { Juego } from 'src/app/@models/Juego/juego.model';
-
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../../variables/charts";
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { JuegoPaginate } from 'src/app/@models/Juego/juego-paginate.model';
 
 @Component({
   selector: 'app-lista-juegos',
@@ -17,49 +8,20 @@ import {
 })
 export class ListaJuegosComponent implements OnInit {
 
-  @Input() juegosPadre: Juego[];
+  @Input() juegosPadre: JuegoPaginate;
 
-  public datasets: any;
-  public data: any;
-  public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  @Output() getJuegoPagina: EventEmitter<string> = new EventEmitter<string>();
+  public paginate:any;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.paginate = Array.from(Array(this.juegosPadre.last_page).keys());
     console.log("estos son los juegos que me llegaron del padre: ", this.juegosPadre);
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
-    
   }
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+  getJuegoPaginate(url:any){
+    this.getJuegoPagina.emit(url);
   }
 
 }
