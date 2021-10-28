@@ -9,12 +9,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/@interceptors/token.interceptor';
+import { CrearJuegosComponent } from './crear-juegos/crear-juegos.component';
 
 
 @NgModule({
   declarations: [
     JuegosComponent,
-    ListaJuegosComponent
+    ListaJuegosComponent,
+    CrearJuegosComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JuegoPaginate } from 'src/app/@models/Juego/juego-paginate.model';
-import { Juego } from 'src/app/@models/Juego/juego.model';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
+import { CrearJuegosComponent } from 'src/app/pages/juegos/crear-juegos/crear-juegos.component';
 
 @Component({
   selector: 'app-juegos',
@@ -16,7 +17,8 @@ export class JuegosComponent implements OnInit {
 
   constructor(
     private juegoService: JuegoService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -52,5 +54,14 @@ export class JuegosComponent implements OnInit {
           console.error('Ocurrio error login', error);
       },
     );
+  }
+
+  crearJuego() {
+    this.modalService.open(CrearJuegosComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+      console.log("cerre bien");
+    }, (reason) => {
+      console.log("cerre mal");
+      /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
+    });
   }
 }
