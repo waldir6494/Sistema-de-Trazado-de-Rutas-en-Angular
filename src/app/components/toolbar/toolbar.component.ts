@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ToolbarService } from 'src/app/@services/Toolbar/Toolbar.service';
+import { ToolbarService } from 'src/app/@services/Toolbar/toolbar.service';
 import { Juego } from 'src/app/@models/Juego/juego.model';
 
 @Component({
