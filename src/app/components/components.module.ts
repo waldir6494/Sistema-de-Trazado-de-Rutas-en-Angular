@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { injectableComponents } from './components.injectable';
 
 @NgModule({
   imports: [
@@ -19,12 +20,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ToolbarComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
-  ]
+    SidebarComponent,
+    ToolbarComponent
+  ],
+  providers: [injectableComponents],
 })
 export class ComponentsModule { }

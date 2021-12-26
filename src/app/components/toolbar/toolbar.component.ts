@@ -9,8 +9,7 @@ import { Juego } from 'src/app/@models/Juego/juego.model';
 @Component({
     selector: 'app-toolbar',
     templateUrl: './toolbar.component.html',
-    styleUrls: ['./toolbar.component.scss'],
-    providers: [ToolbarService]
+    styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
     input: string;
