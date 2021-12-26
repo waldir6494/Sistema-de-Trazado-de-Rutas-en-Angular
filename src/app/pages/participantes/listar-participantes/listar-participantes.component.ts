@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Jugador } from 'src/app/@models/jugador/jugador.model';
+import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
