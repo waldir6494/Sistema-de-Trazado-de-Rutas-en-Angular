@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Jugador } from 'src/app/@models/jugador/jugador.model';
+import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { JugadorService } from 'src/app/@services/Jugador/jugador.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';

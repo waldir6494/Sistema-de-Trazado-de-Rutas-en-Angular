@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HOSTSERVER } from 'src/app/@constants/HOSTSERVER';
-import { Jugador } from 'src/app/@models/jugador/jugador.model';
+import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 
 /* import { HOSTSERVICE_MSSEGURIDAD_APP, HOSTSERVICE_MSDELIVERY, V_API } from '../../@constants/paths';
 import { Token } from 'src/app/@models/back-office/seguridad/token.model';

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HOSTSERVER } from 'src/app/@constants/HOSTSERVER';
-import { Jugador } from 'src/app/@models/jugador/jugador.model';
+import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 import { PreguntaPaginate } from 'src/app/@models/Pregunta/pregunta-paginate.model';
 import { Pregunta } from 'src/app/@models/Pregunta/pregunta.model';
 import { Puntos } from 'src/app/@models/Mapas/Puntos';

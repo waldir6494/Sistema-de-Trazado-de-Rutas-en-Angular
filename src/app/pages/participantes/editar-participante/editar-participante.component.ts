@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { JugadorService } from 'src/app/@services/Jugador/jugador.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR, ESTADO_MODAL_EXISTE } from 'src/app/@constants/constants-global';
-import { Jugador } from 'src/app/@models/jugador/jugador.model';
+import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 
 @Component({
   selector: 'app-editar-participante',
