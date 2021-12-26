@@ -1,0 +1,36 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    
+</div>
+<div class="container-fluid mt--7">
+    <div class="row mt-2">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Preguntas Registradas</h3>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button type="button" class="btn btn-lg btn-primary" (click)="crearPregunta()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                                Nuevo
+                            </button>
+                            
+                            <!-- <a href="#!" class="btn btn-lg btn-primary">Nuevo</a> -->
+                        </div>
+                    </div>
+                </div>
+                <app-lista-preguntas
+                    *ngIf = "preguntas" 
+                    [preguntasPadre]="preguntas" 
+                    (getPreguntaPagina)="getPreguntaPagina($event)"
+                    (updatePreguntaPagina)="updatePreguntaPagina()"
+                    >
+                </app-lista-preguntas>
+            </div>
+        </div>
+    </div>
+</div>

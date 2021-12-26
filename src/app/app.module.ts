@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,8 @@ import { AuthGuard } from 'src/app/@guards/auth.guard';
 import { LoginGuard } from 'src/app/@guards/login.guard';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { JuegosModule } from './pages/juegos/juegos.module';
+import { AgmCoreModule } from '@agm/core';
+import { GOOGLE_KEY } from 'src/app/@constants/constants-global';
 
 @NgModule({
   imports: [
@@ -27,7 +30,14 @@ import { JuegosModule } from './pages/juegos/juegos.module';
     JuegosModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+
+      apiKey: GOOGLE_KEY,
+
+      libraries: ['places']
+
+    })
   ],
   declarations: [
     AppComponent,

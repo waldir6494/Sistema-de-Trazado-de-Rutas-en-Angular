@@ -7151,7 +7151,7 @@ button.close
 .modal-title
 {
     line-height: 1.1;
-
+    justify-content: center;
     margin-bottom: 0;
 }
 

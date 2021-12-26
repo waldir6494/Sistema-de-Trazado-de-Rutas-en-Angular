@@ -10,13 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/@interceptors/token.interceptor';
 import { CrearJuegosComponent } from './crear-juegos/crear-juegos.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { injectableJuegos } from './juegos.injectable';
+import { EditarJuegosComponent } from './editar-juegos/editar-juegos.component';
 
 
 @NgModule({
   declarations: [
     JuegosComponent,
     ListaJuegosComponent,
-    CrearJuegosComponent
+    CrearJuegosComponent,
+    EditarJuegosComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +28,9 @@ import { CrearJuegosComponent } from './crear-juegos/crear-juegos.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    JuegosRoutingModule
-  ]
+    JuegosRoutingModule,
+    SharedModule
+  ],
+  providers: [injectableJuegos],
 })
 export class JuegosModule { }

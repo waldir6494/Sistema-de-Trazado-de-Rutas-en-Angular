@@ -1,7 +1,7 @@
 export class Juego{
     idJuego?: number;
     idAdministrador?: string;
-    Nombrejuego?: string;
+    NombreJuego?: string;
     Inicio?: string;
     Fin?: string;
     Intentos?: string;

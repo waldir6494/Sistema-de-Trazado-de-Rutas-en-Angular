@@ -2,7 +2,7 @@
     
 </div>
 <div class="container-fluid mt--7">
-    <div class="row mt-5">
+    <div class="row mt-2">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
@@ -26,7 +26,9 @@
                 <app-lista-juegos 
                     *ngIf = "juegos" 
                     [juegosPadre]="juegos" 
-                    (getJuegoPagina)="getJuegoPagina($event)">
+                    (getJuegoPagina)="getJuegoPagina($event)"
+                    (updateJuegoPagina)="updateJuegoPagina()"
+                    >
                 </app-lista-juegos>
             </div>
         </div>

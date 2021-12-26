@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -10,8 +10,9 @@ import { Token } from 'src/app/@models/back-office/seguridad/token.model';
 import { Usuario } from '../../@models/back-office/seguridad/usuario.model';
 import { EncryptService } from './encrypt.service';
 import { ControlAcessosService } from 'src/app/@services/back-office/seguridad/control-accesos.service'; */
-import { EventEmitter } from '@angular/core';
+
 import { Usuario } from 'src/app/@models/Usuario/usuario.model';
+import { Juego } from 'src/app/@models/Juego/juego.model';
 /* import { IDMODULO, ID_SREASONS, MODULO, TIPO_ENTIDAD, ID_ORIGEN } from '../../pages/pages.constants'; */
 
 @Injectable()
@@ -28,7 +29,8 @@ export class AuthenticationService {
     private correo = 'correo';
     private refreshTokenName = 'deliveryRefreshToken';
     private logInName = 'LogIn';
-    private tokenSucursal = 'sucursalFilter';
+    private idJuegoSeleccionado = 'idJuegoSeleccionado';
+    private nombreJuegoSeleccionado = 'nombreJuegoSeleccionado';
 
     messageReceived = new EventEmitter<any>();
 
@@ -119,7 +121,8 @@ export class AuthenticationService {
         localStorage.removeItem(this.tokenName);
         //localStorage.removeItem(this.refreshTokenName);
         localStorage.removeItem(this.logInName);
-        localStorage.removeItem(this.tokenSucursal);
+        localStorage.removeItem(this.idJuegoSeleccionado);
+        localStorage.removeItem(this.nombreJuegoSeleccionado);
         localStorage.removeItem(this.idUsuario);
         localStorage.removeItem(this.nombre);
         localStorage.removeItem(this.correo);
@@ -151,17 +154,29 @@ export class AuthenticationService {
         }
     } */
 
-    setSucursalesFiltro(sucursales: any[]): void {
-        console.log('EVENTO', sucursales);
+    setJuegosFiltro(juego:Juego): void {
+        /* console.log('EVENTO', sucursales);
         let suc = sucursales.length > 1 ? '' : sucursales.map((suc) => suc.idSucursal);
-        localStorage.setItem(this.tokenSucursal, suc.toString());
+        localStorage.setItem(this.tokenSucursal, suc.toString()); */
+        
+        console.log("guarde esto en el storage", juego);
+        localStorage.setItem(this.idJuegoSeleccionado, `${juego.idJuego}`);
+        localStorage.setItem(this.nombreJuegoSeleccionado, juego.NombreJuego);
+        this.messageReceived.emit(juego);
+        /* localStorage.removeItem(this.idJuegoSeleccionado);
+        localStorage.removeItem(this.nombreJuegoSeleccionado); */
+    }
+
+    setInicioJuego(juego:Juego){
+        localStorage.setItem(this.idJuegoSeleccionado, `${juego.idJuego}`);
+        localStorage.setItem(this.nombreJuegoSeleccionado, juego.NombreJuego);
     }
     // Opcion el centraliza el combobox toolbar si deseas que se vean todos combo y solo uno select
     // Caso se quiera TODOS que emita combo y en los getSucursales() de cada componente actualizar getSucursalesFiltro() X getSucursales()
-    filterGames(select: any[], combo: any[]): void {
-        this.setSucursalesFiltro(select);
+    filterGames(juego: Juego): void {
+        this.setJuegosFiltro(juego);
 
-        this.messageReceived.emit(select);
+        
     }
 
     saveUser(usuario: Usuario) {
@@ -212,6 +227,14 @@ export class AuthenticationService {
     }
     private setDateLogIn(): void {
         localStorage.setItem(this.logInName, Date.now().toString());
+    }
+
+    getIdJuegoActual(): string {
+        return localStorage.getItem(this.idJuegoSeleccionado);
+    }
+
+    getNombreJuegoActual(): string {
+        return localStorage.getItem(this.nombreJuegoSeleccionado);
     }
 
     private handleError(error: any): Promise<any> {

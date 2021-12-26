@@ -17,6 +17,8 @@ import { ControlAcessosService } from 'src/app/@services/back-office/seguridad/c
 @Injectable()
 export class JuegoService {
     private host = HOSTSERVER;
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
     constructor(
         private http: HttpClient
     ) {}
@@ -37,6 +39,27 @@ export class JuegoService {
         return this.http
                         .get<JuegoPaginate>(url)
                         .pipe(catchError(this.handleError));
+    }
+
+    saveJuego(juego:Juego): Observable<Juego>{
+        const url = `${this.host}/crearJuego`;
+        return this.http
+                    .post<Juego>(url, juego, { headers: this.headers })
+                    .pipe(catchError(this.handleError));
+    }
+
+    updateJuego(juego:Juego): Observable<Juego>{
+        const url = `${this.host}/actualizarJuegoGlobal/${juego.idJuego}`;
+        return this.http
+                    .put<Juego>(url, juego, { headers: this.headers })
+                    .pipe(catchError(this.handleError));
+    }
+
+    deleteJuego(id:number): Observable<Juego>{
+        const url = `${this.host}/eliminarJuegoGlobal/${id}`;
+        return this.http
+                    .delete<Juego>(url, { headers: this.headers })
+                    .pipe(catchError(this.handleError));
     }
 
     private handleError(error: any): Promise<any> {

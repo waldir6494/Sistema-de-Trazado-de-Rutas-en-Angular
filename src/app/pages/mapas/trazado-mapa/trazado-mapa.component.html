@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col">
+    <!-- <div class="card shadow border-0">
+        <div id="map-canvas" class="map-canvas" data-lat="40.748817" data-lng="-73.985428" style="height: 600px;"></div>
+    </div> -->
+    <!-- <agm-map 
+    [latitude]='lat' 
+    [longitude]='long'
+    [zoom]='zoom'
+    >
+     <agm-marker 
+         *ngFor="let marker of markers" 
+         [latitude]="marker.lat" 
+           [longitude]="marker.lng">    
+               <agm-info-window #infoWindow>
+                   {{ marker.label }}
+             </agm-info-window>
+     </agm-marker>
+
+     
+
+ </agm-map> -->
+
+ <div>
+    <div class="card card-stats mb-4 mb-lg-0 mb-3">
+        <div class="card-body">
+            <div class ="col-md-12 mt-4">
+                <div class="row d-flex justify-content-between" >
+                    <div class="form-check textLabel col-md-2">
+                        <div class="custom-control custom-radio mb-3">
+                            <input (click)=aleatorioPunto() name="custom-radio-2" class="custom-control-input" id="customRadio6" checked="" type="radio">
+                            <label class="custom-control-label" for="customRadio6">Punto Aleatorio</label>
+                        </div>
+
+                        <div class="custom-control custom-radio mb-3">
+                            <input (click)=seleccionarPunto() name="custom-radio-2" class="custom-control-input" id="customRadio5" type="radio">
+                            <label class="custom-control-label" for="customRadio5">Punto de Partida</label>
+                        </div>
+                    </div>
+            
+                    <div >
+                        <button (click)=reiniciarTodo() type="button" class="btn btn-outline-danger">REINICIAR MAPA</button>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="mr-5">
+                        <button type="button" (click)=HabilitarCasilla() [disabled]="!botonPunto" class="btn btn-outline-primary">Seleccionar Punto</button>
+                    </div>
+                    <div >
+                        <input type="text" [disabled]="!habilitarCasilla" class="form-control"  placeholder={{valorCasilla}}>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-check textLabel col-md-2">
+                        <!--
+                        <input class="form-check-input" (click)=aleatorioPunto() type="radio" [disabled]="!habilitaAleatorio" name="exampleRadios" id="exampleRadios1" value="option2" checked>
+                            
+                            <label class="form-check-label " for="exampleRadios1">
+                                Punto Aleatorio
+                            </label>
+                            -->
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <!-- <div class="form-check textLabel col-md-3">
+                            <label class="form-check-label " for="exampleRadios1">
+                                Numero de puntos a recorrer
+                            </label>
+                    </div> -->
+
+                    <div class="col-md-3">
+                        <!--
+                        <input [(ngModel)]="cantidadNodo" type="text" [disabled]="!textCantidadNodo" class="form-control"  placeholder="Ingrese Numero de puntos">
+                        -->
+                        <div class="form-group">
+                            <label class="form-control-label">Puntos a recorrer:</label>
+                            <input formControlName="test1" type="name" class="form-control" [(ngModel)]="cantidadNodo" placeholder="Ingrese Numero de puntos">
+                            <!-- <input matInput [(ngModel)]="cantidadNodo" placeholder="Ingrese Numero de puntos"> -->
+                            <!-- <mat-error >
+                                El nombre es <strong>requerido.</strong>
+                            </mat-error> -->
+                            <!-- <button mat-button matSuffix mat-icon-button aria-label="Clear" color = "primary">
+                                    <mat-icon>pin_drop</mat-icon>
+                                    </button> -->
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-end">
+                    <!--
+                    <button (click)=obtenerRutas() type="button" [disabled]="!btnRutas" class="btn btn-primary btn-block">Generar Rutas</button>
+                    -->
+                    <!-- <button type="button" [disabled]="!btnRutas" class="btn btn-primary" (click)="obtenerRutas()">Generar Rutas</button> -->
+                    <button [disabled]="!btnRutas" (click)="obtenerRutas()" type="button" class="btn btn-outline-primary">Generar Rutas</button>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-9" >
+                        <!-- <button style="margin-left: 30%" routerLink="/workspace" type="submit"  mat-stroked-button color="primary"><mat-icon>arrow_back</mat-icon>Volver</button> -->
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <button (click)="verTodasRutas()" type="submit"  mat-stroked-button color="primary"><mat-icon>settings_overscan</mat-icon>  Ver Todo</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude" (mapClick)="onChoseLocation($event)" >
+
+    <agm-marker *ngFor="let marker of markerList"
+            (dragEnd)="mapDragEnd($event)"
+            [latitude]=marker.latitude
+            [longitude]=marker.longitude
+            [label]=marker.label
+            [markerDraggable]=marKerEditable
+            (markerClick)="markerClic($event)">
+    </agm-marker>
+
+
+    <agm-marker *ngIf="VerTodoRuta">
+        <agm-polyline *ngFor="let route of routeList"
+                    [editable]="true"
+                    [geodesic]='false'>
+            <agm-polyline-point
+                        [latitude]=route.startPoint.latitude
+                        [longitude]=route.startPoint.longitude
+            ></agm-polyline-point>
+            <agm-polyline-point
+                        [latitude]=route.endPoint.latitude
+                        [longitude]=route.endPoint.longitude
+            ></agm-polyline-point>
+        </agm-polyline>
+    </agm-marker>
+
+    <agm-marker *ngIf="VerUnoRuta">
+        <agm-polyline [strokeColor]="'red'" >
+                        <agm-polyline-point *ngFor="let dibuja of dibujarRutaSeleccionada" [latitude]="dibuja.latitude" [longitude]="dibuja.longitude" >
+                        </agm-polyline-point>
+        </agm-polyline>
+    </agm-marker>
+
+
+</agm-map>
+
+
+
+    <!-- <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map> -->
+    </div>
+</div>
+
+  

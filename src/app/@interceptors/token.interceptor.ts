@@ -18,7 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("acatoy", request);
     if (this.authService.isLoggedIn()) {//IS LOGIN
       request = this.addCredentials(request);
       return next.handle(request)
@@ -44,10 +43,9 @@ export class TokenInterceptor implements HttpInterceptor {
     */
 
     return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.authService.getToken()}`
-        //`Basic Z2V1eR4vrEg5ARFSnsRRvRZJn7vhC0iS`
-      }
+      headers: request.headers.set('Content-Type', 'application/json')
+    .set('Authorization', `Bearer ${this.authService.getToken()}`)
+
     }); 
 
   };

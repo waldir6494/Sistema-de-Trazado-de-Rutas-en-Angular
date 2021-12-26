@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToolbarService } from 'src/app/@services/Toolbar/Toolbar.service';
 import { Juego } from 'src/app/@models/Juego/juego.model';
 
@@ -10,31 +10,44 @@ import { Juego } from 'src/app/@models/Juego/juego.model';
     selector: 'app-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss'],
-    providers: [AuthenticationService, ToolbarService]
+    providers: [ToolbarService]
 })
 export class ToolbarComponent implements OnInit {
     input: string;
     focused: boolean;
-    juegos: any;
+    juegos: Juego;
     sucursales: any[] = [];
     idEmpresa: string;
     form: FormGroup;
     constructor(
         private _authenticationService: AuthenticationService,
-        private _toolbarnService: ToolbarService
+        private _toolbarnService: ToolbarService,
+        private fb: FormBuilder
     ) {}
 
     ngOnInit() {
+      
+      this.initForm();
+      this.form.valueChanges.subscribe((juegoSeleccionado) => {
+          this.setJuego(juegoSeleccionado.game);
+        console.log("nuevos cambio toolbar", juegoSeleccionado);
+      });
+
       this.getJuegos();
     }
     initForm() {
-        this.form = new FormGroup({
+        /* this.form = new FormGroup({
             game: new FormControl(),
-        });
+        }); */
+
+        this.form = this.fb.group({
+            game: []
+          });
     }
-    setSucursal() {
+    setJuego(juego:any) {
+        console.log("esto seleccione: ", juego);
         //aqui enviamos la lista de juegos obtenida al servicio de actualizacion de juegos, para que sea guardado en el storage
-        this._authenticationService.filterGames(this.form.get('sucursal').value === 'todos' ? this.sucursales : [this.form.get('game').value], this.sucursales);
+        this._authenticationService.filterGames(juego);
     }
 
     getJuegos(){
@@ -43,6 +56,8 @@ export class ToolbarComponent implements OnInit {
                 console.log(res);
                 this.juegos = res;
                 console.log(this.juegos);
+                this.form.controls['game'].setValue( this.juegos[0], {onlySelf: true});
+                this._authenticationService.setInicioJuego(this.juegos[0]);
             },
             (error) => {
                 //this.spinnerService.stop(spinnerRef);

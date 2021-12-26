@@ -1,7 +1,7 @@
 <div class="search-wrapper" [ngClass]="{ focus: focused, 'has-input': input }" fxFlex (furyClickOutside)="closeDropdown()">
     <form [formGroup]="form">
-        <select formControlName="sucursal" class="form-control" data-toggle="select" style="background: white; border-radius: 0.5rem; padding: 0.2rem 1rem">
-            <option *ngFor="let juego of juegos" [value]="idJuego">{{ juego.Nombrejuego }}</option>
+        <select formControlName="game" class="form-control" data-toggle="select" style="background: white; border-radius: 0.5rem; padding: 0.2rem 1rem">
+            <option [ngValue]="juego" *ngFor="let juego of juegos" >{{ juego.NombreJuego }}</option>
         </select>
     </form>
 </div>

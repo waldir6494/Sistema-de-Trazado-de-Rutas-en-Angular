@@ -1,0 +1,126 @@
+<div class="modal-header modal-dialog-centered">
+    <div style="text-align: center;">
+      <h4 class="modal-title" id="modal-basic-title">Registro de un nuevo juego</h4>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="crearJuego">
+      <div class="col">
+
+          <div class="form-group">
+            <label class="form-control-label">Nombre del juego:</label>
+            <ng-container *ngIf="!crearJuego.controls['nombre'].hasError('required')">
+              <input formControlName="nombre" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Juego de prueba">
+            </ng-container>
+            <ng-container *ngIf="crearJuego.controls['nombre'].hasError('required')">
+              <input formControlName="nombre" type="name" class = "form-control is-invalid" id="exampleFormControlInput1" placeholder="Juego de prueba">
+              <label class="input-error-message">*Este campo es requerido.</label>
+            </ng-container>
+          </div>
+    
+          <div class="form-group">
+            <!-- class = "crearJuego.controls['intentos'].hasError('required')? 'form-control-label' : 'form-control is-invalid'" -->
+            <label class="form-control-label">Intentos permitidos:</label>
+            <ng-container *ngIf="!crearJuego.controls['intentos'].hasError('required') && !crearJuego.controls['intentos'].hasError('pattern')">
+              <input formControlName="intentos" type="name" placeholder="Regular" class = "form-control">
+            </ng-container>
+            <ng-container *ngIf="crearJuego.controls['intentos'].hasError('required') || crearJuego.controls['intentos'].hasError('pattern')">
+              <input formControlName="intentos" type="name" placeholder="Cantidad de intentos" class = "form-control is-invalid">
+              <label class="input-error-message">*Este campo es requerido y solo ingrese números.</label>
+            </ng-container>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-email">Fecha de inicio:</label>
+
+                <!-- <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                  </div>
+                  <input class="form-control datepicker" placeholder="Select date" name="dp" [(ngModel)]="inicioDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                </div> -->
+    
+                <app-date-picker name="dp1" formControlName="fechaInicio"></app-date-picker>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <ngb-timepicker formControlName="horaInicio"></ngb-timepicker>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="crearJuego.controls['fechaInicio'].hasError('required') || crearJuego.controls['horaInicio'].hasError('required')">
+            <label class="input-error-message">*La hora y fecha son requeridos.</label>
+          </ng-container>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-email">Fecha de culminación:</label>
+
+                <!-- <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                  </div>
+                  <input class="form-control datepicker" placeholder="Select date" name="dp2" [(ngModel)]="finDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                </div> -->
+                <app-date-picker name="dp2" formControlName="fechaFin"></app-date-picker>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <ngb-timepicker formControlName="horaFin"></ngb-timepicker>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="crearJuego.controls['fechaFin'].hasError('required') || crearJuego.controls['horaFin'].hasError('required')">
+            <label class="input-error-message">*La hora y fecha son requeridos.</label>
+          </ng-container>
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="input-group mb-4">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+              </div>
+              <input class="form-control" placeholder="Search" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="input-group mb-4">
+              <input class="form-control" placeholder="Birthday" type="text">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="row">
+        <div class="col-md-6">
+          <div class="form-group has-success">
+            <input type="text" placeholder="Success" class="form-control is-valid">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-danger">
+            <input type="email" placeholder="Error Input" class="form-control is-invalid">
+          </div>
+        </div>
+      </div> -->
+    </form>
+
+  </div>
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-danger" (click)="cerrar()">Cancelar</button>
+    <button type="button" [disabled]="crearJuego.invalid" class="btn btn-primary" (click)="guardar()">Actualizar</button>
+</div>

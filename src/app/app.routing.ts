@@ -9,6 +9,9 @@ import { AuthenticationComponent } from 'src/app/pages/authentication/authentica
 import { AuthGuard } from 'src/app/@guards/auth.guard';
 import { LoginGuard } from 'src/app/@guards/login.guard';
 import { JuegosComponent } from './pages/juegos/juegos.component';
+import { ParticipantesComponent } from 'src/app/pages/participantes/participantes.component';
+import { PreguntasComponent } from './pages/preguntas/preguntas.component';
+import { MapasComponent } from './pages/mapas/mapas.component';
 
 const routes: Routes =[
   {
@@ -32,7 +35,41 @@ const routes: Routes =[
         loadChildren: () => import('src/app/pages/juegos/juegos.module').then(m => m.JuegosModule)
       }
     ]
-  }, {
+  },
+  {
+    path: 'participantes',
+    component: ParticipantesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('src/app/pages/participantes/participantes.module').then(m => m.ParticipantesModule)
+      }
+    ]
+  }, 
+  {
+    path: 'preguntas',
+    component: PreguntasComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('src/app/pages/preguntas/preguntas.module').then(m => m.PreguntasModule)
+      }
+    ]
+  },
+  {
+    path: 'mapas',
+    component: MapasComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('src/app/pages/mapas/mapas.module').then(m => m.MapasModule)
+      }
+    ]
+  },
+  {
     path: '',
     component: AuthLayoutComponent,
     canActivate: [LoginGuard],
