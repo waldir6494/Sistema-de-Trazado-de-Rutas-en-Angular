@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static('../dist/argon-dashboard-angular'));
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: '../dist/argon-dashboard-angular/'}),
+    res.sendFile('index.html', {root: '../'}),
 );
 
 // Start the app by listening on the default Heroku port
