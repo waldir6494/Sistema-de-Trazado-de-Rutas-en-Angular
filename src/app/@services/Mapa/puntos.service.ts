@@ -7,6 +7,7 @@ import { Jugador } from 'src/app/@models/Jugador/jugador.model';
 import { PreguntaPaginate } from 'src/app/@models/Pregunta/pregunta-paginate.model';
 import { Pregunta } from 'src/app/@models/Pregunta/pregunta.model';
 import { Puntos } from 'src/app/@models/Mapas/Puntos';
+import { Generico } from 'src/app/@models/Shared/generico.model';
 
 /* import { HOSTSERVICE_MSSEGURIDAD_APP, HOSTSERVICE_MSDELIVERY, V_API } from '../../@constants/paths';
 import { Token } from 'src/app/@models/back-office/seguridad/token.model';
@@ -85,6 +86,13 @@ export class PuntosService {
         return this.http
                     .delete<Puntos>(url, { headers: this.headers })
                     .pipe(catchError(this.handleError));
+    }
+
+    contarPreguntas(id:number): Observable<Generico>{
+        const url = `${this.host}/contarPreguntas/${id}`;
+        return this.http
+                        .get<Generico>(url)
+                        .pipe(catchError(this.handleError));
     }
 
     /* saveJuego(juego:Juego): Observable<Juego>{

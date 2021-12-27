@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Puntos } from 'src/app/@models/Mapas/Puntos';
 import { Trama } from 'src/app/@models/Mapas/Trama';
 import { ConsultarRutas } from 'src/app/@models/Mapas/ConsultarRutas';
@@ -16,6 +17,7 @@ import {Marker} from 'src/app/@models/Mapas/marker';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';
+import { forkJoin } from 'rxjs';
 declare const google: any;
 
 @Component({
@@ -26,7 +28,7 @@ declare const google: any;
 })
 
 export class TrazadoMapaComponent implements OnInit {
-
+  public crearJuego: FormGroup;
   puntos: Array<Puntos> = [];
   puntosBD:Puntos[];
   tramaBD:Trama[];
@@ -59,7 +61,7 @@ export class TrazadoMapaComponent implements OnInit {
   nuevasBalanceadas: ObtenerRutas[];
   dibujarRutaSeleccionada: Array<Marker> = [];
   eliminar: Array<Marker> = [];
-  cantidadNodo = null;
+  cantidadNodo = 0;
 	idJuego:any;
   seleccionPunto=true;
   valorCasilla="";
@@ -81,10 +83,11 @@ export class TrazadoMapaComponent implements OnInit {
     tamanio:0,
     idPunto:0
   }
-
+  cantidadPermitido:number = 0;
   constructor(
     private jugadorService: JugadorService,
     private puntoService: PuntosService,
+    private fb: FormBuilder,
     private authenticationService: AuthenticationService, 
     private tramaService: TramaService,
     private spinner: SpinnerService,
@@ -94,6 +97,13 @@ export class TrazadoMapaComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.crearJuego = this.fb.group({
+      intentos: [0, Validators.required]
+    });
+
+    this.crearJuego.valueChanges.subscribe((productosTabla) => {
+      console.log("nuevos datos formulario", productosTabla);
+    });
     this.iniciarJuego();
     this.filterJuegosNext();
   }
@@ -131,7 +141,7 @@ export class TrazadoMapaComponent implements OnInit {
     this.nuevasBalanceadas = [];
     this.dibujarRutaSeleccionada = [];
     this.eliminar = [];
-    this.cantidadNodo = null;
+    this.cantidadNodo = 0;
     this.idJuego = null;
     this.seleccionPunto=true;
     this.valorCasilla="";
@@ -230,7 +240,34 @@ export class TrazadoMapaComponent implements OnInit {
   }
 
   mostrarPuntosPorIdJuego(idJuego: number){
-    this.puntoService.getPuntosPorIdJuego(idJuego).subscribe((data : any)=>{
+    const spinnerRef = this.spinner.start("Cargando....");
+    forkJoin([
+      this.puntoService.getPuntosPorIdJuego(idJuego),
+      this.puntoService.contarPreguntas(idJuego),
+    ]).subscribe((response: any) => {
+      this.puntosBD = response[0];
+       // console.log(data);
+        for (var i =0; i< this.puntosBD.length; i++) {
+          let newMarker:Marker = {
+            id: this.puntosBD[i].idPuntos,
+            latitude:this.puntosBD[i].Latitud,
+            longitude:this.puntosBD[i].Longitud,
+            label:String.fromCharCode(Number(this.puntosBD[i].NombrePunto)+65)
+        }
+        this.markerList.push(newMarker);
+
+      }
+      console.log(this.markerList);
+      this.cantidadPermitido = response[1].Total;
+      this.mostrarTramaPorIdJuego(idJuego);
+      this.spinner.stop(spinnerRef);
+    }),
+      (error) => {
+        this.spinner.stop(spinnerRef);
+        console.error('Ocurrio error, intentelo mas tarde', error);
+      };
+
+    /* this.puntoService.getPuntosPorIdJuego(idJuego).subscribe((data : any)=>{
         this.puntosBD = data;
        // console.log(data);
         for (var i =0; i< this.puntosBD.length; i++) {
@@ -245,7 +282,7 @@ export class TrazadoMapaComponent implements OnInit {
       }
       console.log(this.markerList);
       this.mostrarTramaPorIdJuego(idJuego);
-      });
+      }); */
     }
 
     buscarPuntoID(id: number){
@@ -429,43 +466,57 @@ export class TrazadoMapaComponent implements OnInit {
   }
 
   obtenerRutas(){
-    
-    if(this.seleccionAleatorio){
-      const spinnerRef = this.spinner.start("Obteniendo rutas....");
-           let consulta:ConsultarRutas = {
-                 idJuego:this.idJuego,
-                 tamanio:this.cantidadNodo
-           }
-         this.tramaService.getRutas(consulta).subscribe((data: ObtenerRutas[]) => {
-         this.nuevasBalanceadas = data;
-         this.etiquetarNuevasRutas();
-         this.spinner.stop(spinnerRef);
-         this.alert.start("¡Se generaron las rutas de manera correcta!", 'success');
-         console.log(data);
-       }, (error) => {
+    console.log("toy clickeando aca");
+    if(this.cantidadPermitido == 0){
+      console.log("entre");
+      this.alert.start(`Primero debes generar almenos una pregunta`, 'error');
+      return;
+    }
+    if(this.cantidadNodo == 0){
+      console.log("entre");
+      this.alert.start(`La cantidad de nodos no puede ser 0`, 'error');
+      return;
+    }
+    if(this.cantidadNodo > this.cantidadPermitido){
+      this.alert.start(`No puedes generar rutas mayores a la cantidad de preguntas registradas, solo puedes generar una cantidad de rutas menor a ${this.cantidadPermitido}`, 'error');
+    }else{
+      if(this.seleccionAleatorio){
+        const spinnerRef = this.spinner.start("Obteniendo rutas....");
+            let consulta:ConsultarRutas = {
+                  idJuego:this.idJuego,
+                  tamanio:this.cantidadNodo
+            }
+          this.tramaService.getRutas(consulta).subscribe((data: ObtenerRutas[]) => {
+          this.nuevasBalanceadas = data;
+          this.etiquetarNuevasRutas();
           this.spinner.stop(spinnerRef);
-          this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
-          console.log(error);
-       });
-   }else{
-    const spinnerRef = this.spinner.start("Obteniendo rutas....");
-       let consultar:ConsultarRutasUnicas = {
-           idJuego:this.idJuego,
-           tamanio:this.cantidadNodo,
-           idPunto:this.buscarID(this.markerUnica)
-         }
-     console.log("MARKER UNICA"+ consultar.idPunto + "CANTIDAD NODOS " + consultar.tamanio);
-     this.tramaService.getRutasUnica(consultar).subscribe((data: ObtenerRutas[]) => {
-     this.nuevasBalanceadas = data;
-     this.etiquetarNuevasRutas();
-     this.spinner.stop(spinnerRef);
-     console.log(data);
-   }, (error) => {
+          this.alert.start("¡Se generaron las rutas de manera correcta!", 'success');
+          console.log(data);
+        }, (error) => {
+            this.spinner.stop(spinnerRef);
+            this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
+            console.log(error);
+        });
+    }else{
+      const spinnerRef = this.spinner.start("Obteniendo rutas....");
+        let consultar:ConsultarRutasUnicas = {
+            idJuego:this.idJuego,
+            tamanio:this.cantidadNodo,
+            idPunto:this.buscarID(this.markerUnica)
+          }
+      console.log("MARKER UNICA"+ consultar.idPunto + "CANTIDAD NODOS " + consultar.tamanio);
+      this.tramaService.getRutasUnica(consultar).subscribe((data: ObtenerRutas[]) => {
+      this.nuevasBalanceadas = data;
+      this.etiquetarNuevasRutas();
       this.spinner.stop(spinnerRef);
-      this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
-      console.log(error);
-   });
-   }
+      console.log(data);
+    }, (error) => {
+        this.spinner.stop(spinnerRef);
+        this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
+        console.log(error);
+    });
+    }
+    }
   }
 
   mostrarTabla(){

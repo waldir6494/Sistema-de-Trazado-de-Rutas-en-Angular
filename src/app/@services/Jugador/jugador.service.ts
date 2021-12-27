@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HOSTSERVER } from 'src/app/@constants/HOSTSERVER';
 import { Jugador } from 'src/app/@models/Jugador/jugador.model';
+import { Generico } from 'src/app/@models/Shared/generico.model';
 
 /* import { HOSTSERVICE_MSSEGURIDAD_APP, HOSTSERVICE_MSDELIVERY, V_API } from '../../@constants/paths';
 import { Token } from 'src/app/@models/back-office/seguridad/token.model';
@@ -61,6 +62,13 @@ export class JugadorService {
         return this.http
                     .post<any>(url, {'notificados': participantes}, { headers: this.headers })
                     .pipe(catchError(this.handleError));
+    }
+
+    contarRutas(id:number): Observable<Generico>{
+        const url = `${this.host}/Ruta/contar/${id}`;
+        return this.http
+                        .get<Generico>(url)
+                        .pipe(catchError(this.handleError));
     }
 
     /* getJuegosPagina(url: string): Observable<JuegoPaginate> {

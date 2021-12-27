@@ -7,7 +7,7 @@ import { AlertService } from 'src/app/shared/alert/alert.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { CrearParticipanteComponent } from './crear-participante/crear-participante.component';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-participantes',
@@ -20,6 +20,7 @@ export class ParticipantesComponent implements OnInit {
   public jugadores: Jugador;
   public checkAllSelected: boolean = false;
   public checkAllDate = false;
+  public habilitarNotificacion = false;
   eventsSubject: Subject<void> = new Subject<void>();
   eventsNotificate: Subject<void> = new Subject<void>();
   constructor(
@@ -39,6 +40,30 @@ export class ParticipantesComponent implements OnInit {
     this.checkAllSelected = false;
     this.checkAllDate = false;
     const spinnerRef = this.spinner.start("Cargando....");
+
+    forkJoin([
+      this.jugadorService.getJugadores(Number(this.authenticationService.getIdJuegoActual())),
+      this.jugadorService.contarRutas(Number(this.authenticationService.getIdJuegoActual())),
+    ]).subscribe((response) => {
+
+      this.jugadores = response[0];
+      if(response[1].Total == 0){
+        this.habilitarNotificacion = true;
+      }else{
+        this.habilitarNotificacion = false;
+      }
+      console.log(this.jugadores);
+      this.spinner.stop(spinnerRef);
+
+    }),
+      (error) => {
+        this.spinner.stop(spinnerRef);
+        console.error('Ocurrio error, intentelo mas tarde', error);
+      };
+
+    /* this.checkAllSelected = false;
+    this.checkAllDate = false;
+    const spinnerRef = this.spinner.start("Cargando....");
     this.jugadorService.getJugadores(Number(this.authenticationService.getIdJuegoActual())).subscribe(
         (res) => {
             console.log(res);
@@ -47,12 +72,10 @@ export class ParticipantesComponent implements OnInit {
             this.spinner.stop(spinnerRef);
         },
         (error) => {
-            //this.spinnerService.stop(spinnerRef);
-            //this.badCredentials = true;
             this.spinner.stop(spinnerRef);
             console.error('Ocurrio error login', error);
         },
-    );
+    ); */
   }
 
   updateJugadorPagina(){
@@ -99,8 +122,12 @@ export class ParticipantesComponent implements OnInit {
   }
 
   notificarJugadores(){
-    console.log("clickeo padre");
-    this.eventsNotificate.next();
+    if(this.habilitarNotificacion){
+      this.alert.start("Para notificar primero debe dibujar el mapa y generar rutas", 'error');
+    }else{
+      console.log("clickeo padre");
+      this.eventsNotificate.next();
+    }
   }
 
   activarBotonNotificacion(){
