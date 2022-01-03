@@ -17,7 +17,8 @@ export class CrearPreguntasComponent implements OnInit {
 
   /* Variables relacionadas a reactive form */
   public crearPregunta: FormGroup;
-  
+  private imagenUpload=null;
+
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
@@ -59,7 +60,7 @@ export class CrearPreguntasComponent implements OnInit {
 
   private guardarPreguntaService(pregunta: Pregunta){
     const spinnerRef = this.spinner.start("Guardando.....");
-    this.preguntaService.save(pregunta).subscribe(
+    this.preguntaService.save(pregunta, this.imagenUpload).subscribe(
       (res) => {
           console.log(res);
           this.spinner.stop(spinnerRef);
@@ -75,6 +76,50 @@ export class CrearPreguntasComponent implements OnInit {
 
   public submit(files: FileList) {
     console.log('files:', files);
+  }
+
+  fileuploads(evt:any){
+    const files = evt.target.files;
+    //const control = <FormArray>this.seccionForm.controls['imagen'];
+    /* let noCargados = "";
+    for(let i=0; i<files.length;i++){
+        const reader = new FileReader();
+        console.log("este es el tamanooo: "+files[i].size);
+        
+        reader.onload = (e) =>{
+            if(this.totalImagenes < ConstantesGeneralesTicket.MAXIMO_IMAGENES){
+                const base64 = reader.result + '';
+                control.push(this.fb.control(base64));
+                this.totalImagenes++;
+            }
+            
+        }
+        reader.readAsDataURL(files[i]);
+    }
+    if(noCargados != ""){
+        this.alert.start({
+            titulo: this.translate.instant('0000007.mensajes.Alerta'),
+            mensaje: this.translate.instant('0000007.mensajes.errorTamanioImagen') + "\n"+noCargados,
+            tipo: 'warning',
+            tiempo: 10000,
+        });
+    }
+    evt.srcElement.value = null; */
+
+    if (evt.target.files && evt.target.files[0]) {
+      const file = evt.target.files[0];
+      this.imagenUpload = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.crearPregunta.controls['files'].setValue(reader.result);
+
+      reader.readAsDataURL(file);
+  }
+
+  }
+
+  public removeImage(){
+    this.imagenUpload = null;
+    this.crearPregunta.controls['files'].setValue(null);
   }
 
 }

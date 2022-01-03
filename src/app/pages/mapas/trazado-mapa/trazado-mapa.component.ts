@@ -316,15 +316,17 @@ export class TrazadoMapaComponent implements OnInit {
         this.tramaService.save(trama).subscribe((data) =>{
           this.spinner.stop(spinnerRef);
           this.alert.start("¡Se guardó la trama de manera correcta!", 'success');
+          this.enableMarkers();
          }, (error) => {
             console.log(error);
             this.spinner.stop(spinnerRef);
-            this.alert.start("Ocurrió un error al guardar la trama, intentelo más tarde.", 'success');
+            this.alert.start("Ocurrió un error al guardar la trama, intentelo más tarde.", 'error');
+            this.enableMarkers();
          });
      }
     
      onChoseLocation(event){
-      this.marKerEditable=true;
+      //this.marKerEditable=true;
       if (this.marKerEditable) {
          this.currentLatitude = event.coords.lat;
         this.currentLongitude = event.coords.lng;
@@ -372,7 +374,8 @@ export class TrazadoMapaComponent implements OnInit {
   markerClic(event){
     console.log(event.label);
     console.log("DISABLE MARKERS");
-    this.marKerEditable=false;
+    //this.marKerEditable=false;
+    this.disableEditableMarker();
      if (!this.marKerEditable) {
        console.log("click en marcador");
       this.currentLatitude = event.latitude;
@@ -402,10 +405,20 @@ export class TrazadoMapaComponent implements OnInit {
                 longitude:this.currentLongitude,
                 label:event.label
               };
-              this.startPointState=true;
-              this.endPointState=false;
-              console.log("startPoint FALSE");
-              this.saveRoute();
+
+              if(this.newMarkerStart.latitude ==this.newMarkerEnd.latitude &&  this.newMarkerStart.longitude ==this.newMarkerEnd.longitude ){
+                this.startPointState=true;
+                this.endPointState=false;
+                this.enableMarkers();
+                this.alert.start("El punto de partida no puede ser el mismo que el punto final.", 'error');
+ 
+              }else{
+                this.startPointState=true;
+                this.endPointState=false;
+                console.log("startPoint FALSE");
+                this.saveRoute();
+              }
+              
             }
       //console.log(newMarker);
       }

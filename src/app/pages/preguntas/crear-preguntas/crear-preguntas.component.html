@@ -27,12 +27,49 @@
               </ng-container>
             </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="form-control-label">Imágen:</label>
             <div class="drop-zone" file-drop (files)="submit($event)">
                 <input id="file" type="file" formControlName="files" (change)="submit(crearPregunta.value.files)">
                 <label for="file"><strong>Seleccione un archivo</strong><span class="dragndrop"> o arrastrelo</span>.</label>
             </div>
+          </div> -->
+          <div class="form-group">
+            <label class="form-control-label">Imagen:</label>
+            <ng-container *ngIf="crearPregunta.controls['files'].value">
+              <div style="text-align: center;">
+                <div class="imagecontainer">
+                  <img src="{{crearPregunta.controls['files'].value}}" style="width: 300px; height: 300px; border-radius:50%; margin:5px;">
+                  <div class="overlay">
+                      <a href="javascript:void(0)" class="icon" tittle="remove" (click)="removeImage()">
+                        <svg class="h-8 w-8 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  
+                          <polyline points="3 6 5 6 21 6" />  
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />  
+                          <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />
+                        </svg>
+                      </a>
+                  </div>
+                </div>
+              </div> 
+            </ng-container>
+
+            <ng-container *ngIf="!crearPregunta.controls['files'].value">
+              <div style="text-align: center;">
+                <div class="imagecontainer">
+                  <img src="assets/img/theme/default2.png" style="width: 300px; height: 300px; border-radius:50%; margin:5px;">
+                  <div class="overlay-static">
+                      <label class="icon-static">
+                      <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                      </svg>
+                      <span class="mt-2 text-base leading-normal">Cargar</span>
+                      <input (change)="fileuploads($event)" type='file' style="visibility: hidden; position: absolute;" accept=".jpg,.jpeg,.png,.svg,.gif" />
+                      </label>
+                    </div>
+
+                </div>
+              </div>
+            </ng-container>
           </div>
       </div>
     </form>

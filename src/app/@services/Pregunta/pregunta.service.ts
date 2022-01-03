@@ -70,13 +70,29 @@ export class PreguntaService {
                         .pipe(catchError(this.handleError));
     }
 
-    save(pregunta: Pregunta){
+    /* save(pregunta: Pregunta){
 
         const url = `${this.host}/subirImagen`;
         return this.http
                     .post<Pregunta>(url, pregunta, { headers: this.headers })
                     .pipe(catchError(this.handleError));
-	}
+	} */
+
+    save(pregunta:Pregunta,imagen:File){
+        const url = `${this.host}/subirImagen`;
+        const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
+        const token = localStorage.getItem('token');
+        const formData:FormData = new FormData();
+        formData.append('imagen',imagen);
+        formData.append('idJuego',pregunta.idJuego);
+        formData.append('Pregunta',pregunta.Pregunta);
+        formData.append('Respuesta',pregunta.Respuesta);
+        console.log(formData);
+    
+        return this.http
+                    .post<Pregunta>(url, formData, { headers: headers })
+                    .pipe(catchError(this.handleError));
+      }
 
     /* saveJuego(juego:Juego): Observable<Juego>{
         const url = `${this.host}/crearJuego`;

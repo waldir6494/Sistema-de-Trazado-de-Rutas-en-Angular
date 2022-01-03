@@ -107,7 +107,9 @@
         </div>
     </div>
 </div>
-
+<div class="alert-dismissible alert-primary" role="alert" *ngIf="!marKerEditable">
+    <strong>¡Punto seleccionado!</strong> ¡Seleccione otro punto para dibujar el tramo!
+</div>
  <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude" (mapClick)="onChoseLocation($event)" >
 
     <agm-marker *ngFor="let marker of markerList"

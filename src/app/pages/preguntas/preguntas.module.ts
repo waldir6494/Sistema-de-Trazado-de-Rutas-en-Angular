@@ -11,17 +11,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { injectablePreguntas } from './preguntas.injectable';
-import { FileDirective } from 'src/app/@directives/drag-drop/file.directive';
-import { FileDropDirective } from 'src/app/@directives/drag-drop/file-drop.directive';
+
 
 @NgModule({
   declarations: [
     PreguntasComponent,
     ListaPreguntasComponent,
     CrearPreguntasComponent,
-    EditarPreguntasComponent,
-    FileDirective,
-    FileDropDirective
+    EditarPreguntasComponent
   ],
   imports: [
     CommonModule,
