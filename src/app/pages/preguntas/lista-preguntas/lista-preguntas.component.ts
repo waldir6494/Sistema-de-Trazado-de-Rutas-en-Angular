@@ -33,7 +33,7 @@ export class ListaPreguntasComponent implements OnInit {
   }
 
   getPreguntaPaginate(url:any){
-    this.getPreguntaPagina.emit(url);
+    this.getPreguntaPagina.emit(url.replace('http:', 'https:'));
   }
 
   editarJuego(pregunta:Pregunta){

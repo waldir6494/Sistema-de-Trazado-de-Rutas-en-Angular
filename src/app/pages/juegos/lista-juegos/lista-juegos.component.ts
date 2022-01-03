@@ -34,7 +34,7 @@ export class ListaJuegosComponent implements OnInit {
   }
 
   getJuegoPaginate(url:any){
-    this.getJuegoPagina.emit(url);
+    this.getJuegoPagina.emit(url.replace('http:', 'https:'));
   }
   
   editarJuego(juego:Juego){
