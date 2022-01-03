@@ -78,7 +78,7 @@ export class PreguntaService {
                     .pipe(catchError(this.handleError));
 	} */
 
-    save(pregunta:Pregunta,imagen:File){
+    savePreguntaImagen(pregunta:Pregunta,imagen:File){
         const url = `${this.host}/subirImagen`;
         const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
         const token = localStorage.getItem('token');
@@ -90,7 +90,7 @@ export class PreguntaService {
         console.log(formData);
     
         return this.http
-                    .post<Pregunta>(url, formData, { headers: headers })
+                    .post<Pregunta>(url, formData)
                     .pipe(catchError(this.handleError));
       }
 

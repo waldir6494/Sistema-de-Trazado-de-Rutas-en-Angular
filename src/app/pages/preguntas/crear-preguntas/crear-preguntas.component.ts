@@ -60,7 +60,7 @@ export class CrearPreguntasComponent implements OnInit {
 
   private guardarPreguntaService(pregunta: Pregunta){
     const spinnerRef = this.spinner.start("Guardando.....");
-    this.preguntaService.save(pregunta, this.imagenUpload).subscribe(
+    this.preguntaService.savePreguntaImagen(pregunta, this.imagenUpload).subscribe(
       (res) => {
           console.log(res);
           this.spinner.stop(spinnerRef);

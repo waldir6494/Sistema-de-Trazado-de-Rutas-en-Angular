@@ -42,12 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
     });
     */
     if((request.url).includes('subirImagen')){
-      console.log('entre al interceptor');
-      return request.clone({
-        headers: request.headers.set('Content-Type', 'multipart/form-data')
-      .set('Authorization', `Bearer ${this.authService.getToken()}`)
-  
-      }); 
+      return request;
     }
 
     return request.clone({
