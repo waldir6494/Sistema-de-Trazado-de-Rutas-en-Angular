@@ -17,6 +17,7 @@ import { ComponentsModule } from './components/components.module';
 import { AuthGuard } from 'src/app/@guards/auth.guard';
 import { LoginGuard } from 'src/app/@guards/login.guard';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
+import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
 import { JuegosModule } from './pages/juegos/juegos.module';
 import { AgmCoreModule } from '@agm/core';
 import { GOOGLE_KEY } from 'src/app/@constants/constants-global';
@@ -47,6 +48,7 @@ import { GOOGLE_KEY } from 'src/app/@constants/constants-global';
   providers: [
     AuthGuard,
     LoginGuard,
+    ToolbarUpdateService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

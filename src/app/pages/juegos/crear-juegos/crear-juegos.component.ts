@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
+import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
 
 @Component({
   selector: 'app-crear-juegos',
@@ -26,6 +27,7 @@ export class CrearJuegosComponent implements OnInit {
       public activeModal: NgbActiveModal,
       private fb: FormBuilder,
       private juegoService: JuegoService,
+      private _toolbarUpdateService:ToolbarUpdateService,
       private authenticationService: AuthenticationService,
       private spinner: SpinnerService) { }
 
@@ -81,6 +83,7 @@ export class CrearJuegosComponent implements OnInit {
       (res) => {
           console.log(res);
           this.spinner.stop(spinnerRef);
+          this._toolbarUpdateService.updateToolbar();
           this.activeModal.close(ESTADO_MODAL_CORRECTO); 
       },
       (error) => {

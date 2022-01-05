@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToolbarService } from 'src/app/@services/Toolbar/toolbar.service';
+import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
 import { Juego } from 'src/app/@models/Juego/juego.model';
 
 @Component({
@@ -21,18 +22,23 @@ export class ToolbarComponent implements OnInit {
     constructor(
         private _authenticationService: AuthenticationService,
         private _toolbarnService: ToolbarService,
+        private _toolbarUpdateService:ToolbarUpdateService,
         private fb: FormBuilder
     ) {}
 
     ngOnInit() {
       
-      this.initForm();
-      this.form.valueChanges.subscribe((juegoSeleccionado) => {
-          this.setJuego(juegoSeleccionado.game);
-        console.log("nuevos cambio toolbar", juegoSeleccionado);
-      });
+        this.initForm();
+        this.form.valueChanges.subscribe((juegoSeleccionado) => {
+            this.setJuego(juegoSeleccionado.game);
+            console.log("nuevos cambio toolbar", juegoSeleccionado);
+        });
 
-      this.getJuegos();
+        this.getJuegos();
+        this._toolbarUpdateService.messageReceived.subscribe((res) => {
+        console.info('[TOOLBAR GAMES][messageReceived]', res);
+            this.getJuegos();
+        });
     }
     initForm() {
         /* this.form = new FormGroup({

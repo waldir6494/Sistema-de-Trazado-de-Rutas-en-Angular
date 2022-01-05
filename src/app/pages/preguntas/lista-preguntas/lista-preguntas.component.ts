@@ -42,6 +42,26 @@ export class ListaPreguntasComponent implements OnInit {
 
   eliminarJuego(pregunta:Pregunta){
 
+    /* const spinnerRef = this.spinner.start("Eliminando.....");
+    this.preguntaService.deleteJugador(jugador.idJugador).subscribe(
+      (res) => {
+          console.log(res);
+          this.spinner.stop(spinnerRef);
+          this.updatePreguntaPagina.emit();
+          this.alert.start("Se eliminó el registro de manera correcta!", 'success');
+          
+      },
+      (error) => {
+          //this.spinnerService.stop(spinnerRef);
+          //this.badCredentials = true;
+          this.spinner.stop(spinnerRef);
+          this.updatePreguntaPagina.emit();
+          console.error('Ocurrio error al eliminar la pregunta', error);
+          
+      },
+    );
+
+    console.log("deberia salir la alerta"); */
   }
 
 }
