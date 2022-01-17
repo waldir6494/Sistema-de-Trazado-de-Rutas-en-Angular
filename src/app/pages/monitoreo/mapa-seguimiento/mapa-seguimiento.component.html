@@ -1,0 +1,32 @@
+<div class="modal-header modal-dialog-centered">
+    <div style="text-align: center;">
+      <h4 class="modal-title" id="modal-basic-title">Registro de un nuevo juego</h4>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude">
+    </agm-map>
+  </div>
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-danger">Cancelar</button>
+    <button type="button" class="btn btn-primary">Guardar</button>
+</div>
+
+
+<!-- 
+<div class="row">
+    <div class="col">
+        <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude">
+
+            
+            
+
+        </agm-map>
+
+    </div>
+</div>
+ -->
+  

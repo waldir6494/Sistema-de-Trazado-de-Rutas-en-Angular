@@ -12,6 +12,7 @@ import { JuegosComponent } from './pages/juegos/juegos.component';
 import { ParticipantesComponent } from 'src/app/pages/participantes/participantes.component';
 import { PreguntasComponent } from './pages/preguntas/preguntas.component';
 import { MapasComponent } from './pages/mapas/mapas.component';
+import { MonitoreoComponent } from './pages/monitoreo/monitoreo.component';
 
 const routes: Routes =[
   {
@@ -66,6 +67,17 @@ const routes: Routes =[
       {
         path: '',
         loadChildren: () => import('src/app/pages/mapas/mapas.module').then(m => m.MapasModule)
+      }
+    ]
+  },
+  {
+    path: 'monitoreo',
+    component: MonitoreoComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('src/app/pages/monitoreo/monitoreo.module').then(m => m.MonitoreoModule)
       }
     ]
   },
