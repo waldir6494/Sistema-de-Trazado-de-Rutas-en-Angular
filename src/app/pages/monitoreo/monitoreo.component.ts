@@ -18,6 +18,8 @@ import { Tablaid } from 'src/app/@models/Monitoreo/tablaid';
 export class MonitoreoComponent implements OnInit {
   public jugadores: any;
   tablaMonitoreo:any;
+  archivoExcel:any;
+
   idd:Tablaid={
     idJugadores:[]
   };
@@ -55,7 +57,7 @@ export class MonitoreoComponent implements OnInit {
     }),
     (error) => {
       this.spinner.stop(spinnerRef);
-      console.error('Ocurrio error, intentelo mas tarde', error);
+      this.alert.start("Ocurrió un error al obtener los datos, intentelo mas tarde.", 'error');
     };
   }
 
@@ -68,19 +70,39 @@ export class MonitoreoComponent implements OnInit {
     }),
     (error) => {
       this.spinner.stop(spinnerRef);
-      console.error('Ocurrio error, intentelo mas tarde', error);
+      this.alert.start("Ocurrió un error al obtener los datos, intentelo mas tarde.", 'error');
     };
   }
 
-  seguimiento() {
+  seguimientoTodosJugadores() {
     console.log('entre');
-    this.modalService.open(MapaSeguimientoComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl'}).result.then((result) => {
-      console.log(result);
-    }, (reason) => {
-      console.log("cerre mal");
-      
-      /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
-    });
+    const ref = this.modalService.open(MapaSeguimientoComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl'});
+    ref.componentInstance.ids = this.idd;
   }
+
+  seguimientoUnicoJugador(id:number) {
+    console.log('entre');
+    const ref = this.modalService.open(MapaSeguimientoComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl'});
+    ref.componentInstance.id = id;
+  }
+
+  descargarExcelTabla(){
+    const spinnerRef = this.spinner.start("Descargando....");
+    this.monitoreoService.getExcelTabla(this.idd).subscribe((data: any) => {
+       this.archivoExcel = data;
+       // link para descargar
+       const linkSource = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + this.archivoExcel;
+       const downloadLink = document.createElement('a');
+       const fileName = 'Resultados de la Evaluacion';
+       // HREF para descargar
+       downloadLink.href = linkSource;
+       downloadLink.download = fileName;
+       downloadLink.click();
+       this.spinner.stop(spinnerRef);
+     }, (error) => {
+       console.log(error);
+       this.alert.start("Ocurrió un error al descargar el documento excel, intentelo mas tarde.", 'error');
+     });
+ }
 
 }

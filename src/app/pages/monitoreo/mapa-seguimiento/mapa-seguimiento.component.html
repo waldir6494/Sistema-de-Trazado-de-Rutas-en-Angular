@@ -7,8 +7,63 @@
     </button>
   </div>
   <div class="modal-body">
-    <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude">
-    </agm-map>
+    <!-- <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude">
+    </agm-map> -->
+
+    <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude" >
+
+      <agm-marker *ngIf="jugadorActualPosicion"
+          [latitude]=jugadorActual.latitude
+          [longitude]=jugadorActual.longitude
+          [iconUrl]=iconMap.iconUrl
+          [visible]=true
+          ></agm-marker>
+    
+    
+      <agm-marker *ngIf="verUno" >
+        <agm-marker  *ngFor="let m of rutaJugadorActual"
+          [latitude]=m.Latitud
+          [longitude]=m.Longitud
+          [visible]=true
+          ></agm-marker>
+    
+    
+        <agm-polyline [strokeColor]="'blue'">
+                        <agm-polyline-point *ngFor="let punto of rutaJugadorActual" [latitude]="punto.Latitud" [longitude]="punto.Longitud" >
+                        </agm-polyline-point>
+            </agm-polyline>
+      </agm-marker>
+    
+    
+      <agm-marker *ngIf="verTodo">
+        <agm-marker *ngFor="let UnaRuta of TodasRutas" >
+          <agm-marker *ngFor="let m of UnaRuta"
+            [latitude]=m.latitude
+            [longitude]=m.longitude
+            [visible]=true
+            ></agm-marker>
+    
+              <agm-polyline [strokeColor]="'blue'" >
+                          <agm-polyline-point *ngFor="let m of UnaRuta" [latitude]="m.latitude" [longitude]="m.longitude" >
+                          </agm-polyline-point>
+              </agm-polyline>
+        </agm-marker>
+    
+        <agm-marker *ngFor="let posiciones of posicionesActualesTodos"
+          [latitude]=posiciones.Latitud
+          [longitude]=posiciones.Longitud
+          [iconUrl]=iconMap.iconUrl
+          [visible]=true
+          ></agm-marker>
+    
+    
+      </agm-marker>
+    
+    
+    
+    
+      </agm-map>
+      <!--  -->
   </div>
   <div class="modal-footer justify-content-center">
     <button type="button" class="btn btn-danger">Cancelar</button>

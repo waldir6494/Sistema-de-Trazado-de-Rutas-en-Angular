@@ -22,6 +22,19 @@ export class MonitoreoService {
         private http: HttpClient
     ) {}
 
+    getPuntosJugador(id: number){
+        const url = `${this.host}/Rutas/rutajugadorT/${id}`;
+        return this.http
+                        .get<any>(url,)
+                        .pipe(catchError(this.handleError));
+      }
+    
+    getTodasRutasJugadores(ids: Tablaid){
+        const url = `${this.host}/Rutas/TodasRutas`;
+        return this.http
+                        .post<any>(url, ids)
+                        .pipe(catchError(this.handleError));
+    }
 
     getTabla(ids: Tablaid): Observable<any> {
         const url = `${this.host}/PuntoMonitoreo/getTabla`;
@@ -29,6 +42,28 @@ export class MonitoreoService {
                         .post<any>(url, ids)
                         .pipe(catchError(this.handleError));
     }
+
+    getExcelTabla(ids: Tablaid){
+        const url = `${this.host}/resultadosExcel`;
+        return this.http
+                        .post<any>(url, ids)
+                        .pipe(catchError(this.handleError));
+    }
+
+    getPosicionActual(id: number){
+        const url = `${this.host}/PuntoMonitoreo/getPosicionActualJugador/${id}`;
+        return this.http
+                        .post<any>(url, id)
+                        .pipe(catchError(this.handleError));
+    }
+    
+      getPosicionActualTodos(ids: Tablaid){
+        const url = `${this.host}/PuntoMonitoreo/getPosicionActualTodosJugadores`;
+        return this.http
+                        .post<any>(url, ids)
+                        .pipe(catchError(this.handleError));
+    }
+
 
     private handleError(error: any): Promise<any> {
         if (error.error.IdError === 4011000) {
