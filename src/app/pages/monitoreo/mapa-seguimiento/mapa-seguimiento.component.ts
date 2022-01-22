@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper, LatLng, LatLngLiteral} from '@agm/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MonitoreoService } from 'src/app/@services/Monitoreo/monitoreo.service';
 import { Marker } from 'src/app/@models/Mapas/marker';
@@ -28,6 +28,20 @@ export class MapaSeguimientoComponent implements OnInit {
     longitude: 0,
     label: "",
   }
+
+  paths: Array<Array<LatLng | LatLngLiteral>> = [
+    [
+      {
+        "lat": 7.031,
+        "lng": 125.573
+      },
+      {
+        "lat": 7.031,
+        "lng": 125.575
+      }
+    ]
+  ];
+
   constructor(
     public activeModal: NgbActiveModal,
     private monitoreoService: MonitoreoService
@@ -117,6 +131,10 @@ export class MapaSeguimientoComponent implements OnInit {
 
   public cerrar() {
     this.activeModal.close();
+  }
+
+  transformar(coordenada:any){
+    return parseFloat(coordenada);
   }
 
 }

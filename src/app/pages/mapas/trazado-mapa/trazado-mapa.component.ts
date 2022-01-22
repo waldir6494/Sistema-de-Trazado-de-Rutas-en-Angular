@@ -72,12 +72,15 @@ export class TrazadoMapaComponent implements OnInit {
   FormularioTabla: boolean;
   VerTodoRuta:boolean=true;
   VerUnoRuta:boolean=false;
+  generacionRutas=true;
   updRuta:actualizarRuta={
     idsJugadores: [],
     idRuta: 0,
   }
   jugadores:any;
   idsRutas:any;
+  cantidadRutasGeneral:any=null;
+  cantidadPuntosGeneral:any=null;
   consultarT:ConsultarRutasUnicas = {
     idJuego:0,
     tamanio:0,
@@ -246,6 +249,7 @@ export class TrazadoMapaComponent implements OnInit {
       this.puntoService.contarPreguntas(idJuego),
     ]).subscribe((response: any) => {
       this.puntosBD = response[0];
+      this.cantidadPuntosGeneral = response[0].length;
        // console.log(data);
         for (var i =0; i< this.puntosBD.length; i++) {
           let newMarker:Marker = {
@@ -326,6 +330,10 @@ export class TrazadoMapaComponent implements OnInit {
      }
     
      onChoseLocation(event){
+        if(this.cantidadRutasGeneral){
+          this.alert.start("No es posible editar el mapa cuando ya se generaron las rutas.", 'error');
+          return;
+        }
       //this.marKerEditable=true;
       if (this.marKerEditable) {
          this.currentLatitude = event.coords.lat;
@@ -372,6 +380,10 @@ export class TrazadoMapaComponent implements OnInit {
   }
 
   markerClic(event){
+    if(this.cantidadRutasGeneral){
+      this.alert.start("No es posible editar el mapa cuando ya se generaron las rutas.", 'error');
+      return;
+    }
     console.log(event.label);
     console.log("DISABLE MARKERS");
     //this.marKerEditable=false;
@@ -542,6 +554,7 @@ export class TrazadoMapaComponent implements OnInit {
        this.tramaService.getRutasUnicaT(this.consultarT).subscribe((data: ObtenerRutas[]) => {
    
        this.nuevasBalanceadas = data;
+       console.log("NUEVAS BALANCEADASSSS: ",  this.nuevasBalanceadas);
        this.etiquetarNuevasRutas();
        console.log(data);
      }, (error) => {
@@ -553,6 +566,9 @@ export class TrazadoMapaComponent implements OnInit {
   consultarNumeroNodos(){
     this.tramaService.consultarNumeroNodos(this.idJuego).subscribe((data: any) => {
     this.consultarT.tamanio=data.Total;
+    if(this.consultarT.tamanio > 0){
+      this.generacionRutas = false;
+    }
     console.log("TAMANIO"+this.consultarT.tamanio);
     this.consultarRutasGeneradas();
     }, (error) => {
@@ -563,7 +579,9 @@ export class TrazadoMapaComponent implements OnInit {
   consultarRutasGeneradas(){
     this.tramaService.consultarRutasGeneradas(this.idJuego).subscribe((data: any) => {
     console.log('data '+data[0].idRuta);
-    console.log(data);
+    console.log("cantidad de rutassssssssssssss: ", data);
+    console.log("cantidad de rutassssssssssssss: ", data.length);
+    this.cantidadRutasGeneral = data.length;
     this.idsRutas=data;
     this.consultarT.idPunto=data[0].idPuntoPartida;
     this.consultarT.idJuego=this.idJuego;
@@ -635,6 +653,10 @@ export class TrazadoMapaComponent implements OnInit {
   }
   sayChesse(){
       console.log("Chesse");
+  }
+
+  transformar(coordenada:any){
+    return parseFloat(coordenada);
   }
 
 }
