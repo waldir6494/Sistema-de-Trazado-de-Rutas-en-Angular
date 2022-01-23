@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { injectablePreguntas } from './preguntas.injectable';
+import { ImagenVistaComponent } from './imagen-vista/imagen-vista.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { injectablePreguntas } from './preguntas.injectable';
     PreguntasComponent,
     ListaPreguntasComponent,
     CrearPreguntasComponent,
-    EditarPreguntasComponent
+    EditarPreguntasComponent,
+    ImagenVistaComponent
   ],
   imports: [
     CommonModule,

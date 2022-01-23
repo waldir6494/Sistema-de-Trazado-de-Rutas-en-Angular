@@ -45,6 +45,10 @@ export class TokenInterceptor implements HttpInterceptor {
       return request;
     }
 
+    if((request.url).includes('actualizarPregunta')){
+      return request;
+    }
+
     return request.clone({
       headers: request.headers.set('Content-Type', 'application/json')
     .set('Authorization', `Bearer ${this.authService.getToken()}`)

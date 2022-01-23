@@ -70,6 +70,13 @@ export class PreguntaService {
                         .pipe(catchError(this.handleError));
     }
 
+    getPregunta(id: number): Observable<Pregunta> {
+        const url = `${this.host}/verpregunta/${id}`;
+        return this.http
+                        .get<Pregunta>(url)
+                        .pipe(catchError(this.handleError));
+    }
+
     /* save(pregunta: Pregunta){
 
         const url = `${this.host}/subirImagen`;
@@ -92,8 +99,31 @@ export class PreguntaService {
         return this.http
                     .post<Pregunta>(url, formData)
                     .pipe(catchError(this.handleError));
-      }
+    }
 
+    updatePregunta(pregunta:Pregunta,imagen:File){
+        const url = `${this.host}/actualizarPregunta/${pregunta.idPreguntas}`;
+        const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
+        const token = localStorage.getItem('token');
+        const formData:FormData = new FormData();
+        formData.append('imagen',imagen);
+        formData.append('idJuego',pregunta.idJuego);
+        formData.append('Pregunta',pregunta.Pregunta);
+        formData.append('Respuesta',pregunta.Respuesta);
+        formData.append('Imagen',pregunta.Imagen);
+        console.log(formData);
+    
+        return this.http
+                    .post<Pregunta>(url, formData)
+                    .pipe(catchError(this.handleError));
+    }
+
+    deletePregunta(id:number): Observable<any>{
+        const url = `${this.host}/eliminarPregunta/${id}`;
+        return this.http
+                    .delete<any>(url, { headers: this.headers })
+                    .pipe(catchError(this.handleError));
+    }
     /* saveJuego(juego:Juego): Observable<Juego>{
         const url = `${this.host}/crearJuego`;
         return this.http

@@ -115,6 +115,9 @@ export class TrazadoMapaComponent implements OnInit {
     this.puntos = [];
     this.puntosBD=[];
     this.tramaBD=[];
+    this.cantidadRutasGeneral=null;
+    this.cantidadPuntosGeneral=null;
+    this.generacionRutas = true;
     this.rutasBalanceadas=[];
     this.latitude = -16.398839298947458;
     this.longitude = -71.53687523018044;
@@ -250,6 +253,8 @@ export class TrazadoMapaComponent implements OnInit {
     ]).subscribe((response: any) => {
       this.puntosBD = response[0];
       this.cantidadPuntosGeneral = response[0].length;
+      this.contador = response[0].length;
+      this.letter=response[0].length+"";
        // console.log(data);
         for (var i =0; i< this.puntosBD.length; i++) {
           let newMarker:Marker = {

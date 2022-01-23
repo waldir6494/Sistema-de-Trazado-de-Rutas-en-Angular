@@ -85,12 +85,12 @@ export class PreguntasComponent implements OnInit {
       console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         this.getPreguntas();
-        this.alert.start("¡Se registró al participante de manera correcta!", 'success');
+        this.alert.start("¡Se registró la pregunta de manera correcta!", 'success');
         console.log("recargue la paggg");
       }
       
       if(result == ESTADO_MODAL_ERROR){
-        this.alert.start("Ocurrió un error al registrar al participante, intentelo mas tarde", 'error');
+        this.alert.start("Ocurrió un error al registrar la pregunta, intentelo mas tarde", 'error');
       }
     }, (reason) => {
       console.log("cerre mal");

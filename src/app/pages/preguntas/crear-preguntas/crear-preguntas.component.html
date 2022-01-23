@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label class="form-control-label">Pregunta:</label>
-              <input formControlName="pregunta" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese nombre del participante">
+              <input formControlName="pregunta" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese la pregunta">
               <ng-container *ngIf="crearPregunta.controls['pregunta'].hasError('required')">
                 <label class="input-error-message">*Este campo es requerido.</label>
               </ng-container>
@@ -21,7 +21,7 @@
     
           <div class="form-group">
             <label class="form-control-label">Respuesta:</label>
-              <input formControlName="respuesta" type="name" class="form-control" id="exampleFormControlInput2" placeholder="Ingrese correo del participante">
+              <input formControlName="respuesta" type="name" class="form-control" id="exampleFormControlInput2" placeholder="Ingrese la respuesta">
               <ng-container *ngIf="crearPregunta.controls['respuesta'].hasError('required')">
                 <label class="input-error-message">*Este campo es requerido.</label>
               </ng-container>

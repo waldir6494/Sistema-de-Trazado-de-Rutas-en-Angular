@@ -13,25 +13,33 @@
 
           <div class="form-group">
             <label class="form-control-label">Nombre del juego:</label>
-            <ng-container *ngIf="!crearJuego.controls['nombre'].hasError('required')">
+           <!--  <ng-container *ngIf="!crearJuego.controls['nombre'].hasError('required')"> -->
               <input formControlName="nombre" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Juego de prueba">
-            </ng-container>
-            <ng-container *ngIf="crearJuego.controls['nombre'].hasError('required')">
+         <!--    </ng-container> -->
+            <!-- <ng-container *ngIf="crearJuego.controls['nombre'].hasError('required')">
               <input formControlName="nombre" type="name" class = "form-control is-invalid" id="exampleFormControlInput1" placeholder="Juego de prueba">
               <label class="input-error-message">*Este campo es requerido.</label>
-            </ng-container>
+            </ng-container> -->
+            <div *ngIf="(crearJuego.get('nombre').invalid && crearJuego.get('nombre').touched) || crearJuego.get('nombre').dirty">
+              <small class="text-danger" *ngIf="crearJuego.get('nombre').errors?.required">*Este campo es requerido.</small>
+            </div>
           </div>
-    
+          
+
           <div class="form-group">
             <!-- class = "crearJuego.controls['intentos'].hasError('required')? 'form-control-label' : 'form-control is-invalid'" -->
             <label class="form-control-label">Intentos permitidos:</label>
-            <ng-container *ngIf="!crearJuego.controls['intentos'].hasError('required') && !crearJuego.controls['intentos'].hasError('pattern')">
+            <!-- <ng-container *ngIf="!crearJuego.controls['intentos'].hasError('required') && !crearJuego.controls['intentos'].hasError('pattern')"> -->
               <input formControlName="intentos" type="name" placeholder="Regular" class = "form-control">
-            </ng-container>
-            <ng-container *ngIf="crearJuego.controls['intentos'].hasError('required') || crearJuego.controls['intentos'].hasError('pattern')">
+           <!--  </ng-container> -->
+            <!-- <ng-container *ngIf="crearJuego.controls['intentos'].hasError('required') || crearJuego.controls['intentos'].hasError('pattern')">
               <input formControlName="intentos" type="name" placeholder="Cantidad de intentos" class = "form-control is-invalid">
               <label class="input-error-message">*Este campo es requerido y solo ingrese números.</label>
-            </ng-container>
+            </ng-container> -->
+            <div *ngIf="(crearJuego.get('intentos').invalid && crearJuego.get('intentos').touched) || crearJuego.get('intentos').dirty">
+              <small class="text-danger" *ngIf="crearJuego.get('intentos').errors?.required">*Este campo es requerido</small>
+              <small class="text-danger" *ngIf="crearJuego.get('intentos').errors?.pattern">Solo se adminte números</small>
+            </div>
           </div>
 
           <div class="row">
@@ -55,9 +63,15 @@
               </div>
             </div>
           </div>
-          <ng-container *ngIf="crearJuego.controls['fechaInicio'].hasError('required') || crearJuego.controls['horaInicio'].hasError('required')">
+
+          <div *ngIf="(crearJuego.get('fechaInicio').invalid && crearJuego.get('fechaInicio').touched) || crearJuego.get('fechaInicio').dirty || (crearJuego.get('horaInicio').invalid && crearJuego.get('horaInicio').touched) || crearJuego.get('horaInicio').dirty">
+            <small class="text-danger" *ngIf="crearJuego.get('fechaInicio').errors?.required || crearJuego.get('horaInicio').errors?.required ">La hora y la fecha son requeridos</small>
+
+          </div>
+
+          <!-- <ng-container *ngIf="crearJuego.controls['fechaInicio'].hasError('required') || crearJuego.controls['horaInicio'].hasError('required')">
             <label class="input-error-message">*La hora y fecha son requeridos.</label>
-          </ng-container>
+          </ng-container> -->
 
           <div class="row">
             <div class="col-lg-6">
@@ -79,9 +93,14 @@
               </div>
             </div>
           </div>
-          <ng-container *ngIf="crearJuego.controls['fechaFin'].hasError('required') || crearJuego.controls['horaFin'].hasError('required')">
+          <div *ngIf="(crearJuego.get('fechaFin').invalid && crearJuego.get('fechaFin').touched) || crearJuego.get('fechaFin').dirty || (crearJuego.get('horaFin').invalid && crearJuego.get('horaFin').touched) || crearJuego.get('horaFin').dirty">
+            <small class="text-danger" *ngIf="crearJuego.get('fechaFin').errors?.required || crearJuego.get('horaFin').errors?.required ">La hora y la fecha son requeridos</small>
+
+          </div>
+
+         <!--  <ng-container *ngIf="crearJuego.controls['fechaFin'].hasError('required') || crearJuego.controls['horaFin'].hasError('required')">
             <label class="input-error-message">*La hora y fecha son requeridos.</label>
-          </ng-container>
+          </ng-container> -->
       </div>
       <!-- <div class="row">
         <div class="col-md-6">
