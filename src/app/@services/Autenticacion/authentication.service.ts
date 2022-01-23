@@ -13,6 +13,7 @@ import { ControlAcessosService } from 'src/app/@services/back-office/seguridad/c
 
 import { Usuario } from 'src/app/@models/Usuario/usuario.model';
 import { Juego } from 'src/app/@models/Juego/juego.model';
+import { UsuarioRegistro } from 'src/app/@models/Autenticacion/usuario-registro.model';
 /* import { IDMODULO, ID_SREASONS, MODULO, TIPO_ENTIDAD, ID_ORIGEN } from '../../pages/pages.constants'; */
 
 @Injectable()
@@ -22,7 +23,7 @@ export class AuthenticationService {
     private v_api = 2; //V_API;
     private id_sr = ID_SREASONS;
     private module = IDMODULO; */
-
+    private host = HOSTSERVER;
     private tokenName = 'gameToken';
     private idUsuario = 'idUsuario';
     private nombre = 'nombre';
@@ -235,6 +236,13 @@ export class AuthenticationService {
 
     getNombreJuegoActual(): string {
         return localStorage.getItem(this.nombreJuegoSeleccionado);
+    }
+
+    registrar(usuario: UsuarioRegistro){
+        const url = `${this.host}/register`;
+        return this.http
+                    .post<any>(url, usuario)
+                    .pipe(catchError(this.handleError));
     }
 
     private handleError(error: any): Promise<any> {
