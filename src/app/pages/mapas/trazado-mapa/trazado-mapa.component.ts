@@ -63,9 +63,9 @@ export class TrazadoMapaComponent implements OnInit {
   eliminar: Array<Marker> = [];
   cantidadNodo = 0;
 	idJuego:any;
-  seleccionPunto=true;
+  seleccionPunto=false;
   valorCasilla="";
-  seleccionAleatorio=false;
+  seleccionAleatorio=true;
   habilitarCasilla=false;
   botonPunto=false;
   contadorGeneral=0;
@@ -149,9 +149,9 @@ export class TrazadoMapaComponent implements OnInit {
     this.eliminar = [];
     this.cantidadNodo = 0;
     this.idJuego = null;
-    this.seleccionPunto=true;
+    this.seleccionPunto=false;
     this.valorCasilla="";
-    this.seleccionAleatorio=false;
+    this.seleccionAleatorio=true;
     this.habilitarCasilla=false;
     this.botonPunto=false;
     this.contadorGeneral=0;
@@ -518,7 +518,7 @@ export class TrazadoMapaComponent implements OnInit {
           this.etiquetarNuevasRutas();
           this.spinner.stop(spinnerRef);
           this.alert.start("¡Se generaron las rutas de manera correcta!", 'success');
-        
+          this.iniciarJuego();
         }, (error) => {
             this.spinner.stop(spinnerRef);
             this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
