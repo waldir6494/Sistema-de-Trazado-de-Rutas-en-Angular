@@ -75,13 +75,13 @@ export class MonitoreoComponent implements OnInit {
   }
 
   seguimientoTodosJugadores() {
-    console.log('entre');
+   
     const ref = this.modalService.open(MapaSeguimientoComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl'});
     ref.componentInstance.ids = this.idd;
   }
 
   seguimientoUnicoJugador(id:number) {
-    console.log('entre');
+    
     const ref = this.modalService.open(MapaSeguimientoComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl'});
     ref.componentInstance.id = id;
   }
@@ -100,7 +100,7 @@ export class MonitoreoComponent implements OnInit {
        downloadLink.click();
        this.spinner.stop(spinnerRef);
      }, (error) => {
-       console.log(error);
+       
        this.alert.start("Ocurrió un error al descargar el documento excel, intentelo mas tarde.", 'error');
      });
  }

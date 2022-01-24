@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { PreguntaService } from 'src/app/@services/Pregunta/pregunta.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 
 @Component({
   selector: 'app-crear-preguntas',
@@ -24,7 +25,8 @@ export class CrearPreguntasComponent implements OnInit {
     private fb: FormBuilder,
     private preguntaService: PreguntaService,
     private authenticationService: AuthenticationService,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private alert: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -108,6 +110,10 @@ export class CrearPreguntasComponent implements OnInit {
 
     if (evt.target.files && evt.target.files[0]) {
       const file = evt.target.files[0];
+      if(file.size > 748576){
+        this.alert.start("¡La imagen no puede superar los 700Kb de tamaño!.", 'error');
+        return;
+      }
       this.imagenUpload = evt.target.files[0];
       const reader = new FileReader();
       reader.onload = e => this.crearPregunta.controls['files'].setValue(reader.result);

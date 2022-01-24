@@ -115,6 +115,10 @@ export class EditarPreguntasComponent implements OnInit {
 
     if (evt.target.files && evt.target.files[0]) {
       const file = evt.target.files[0];
+      if(file.size > 748576){
+        this.alert.start("¡La imagen no puede superar los 700Kb de tamaño!.", 'error');
+        return;
+      }
       this.imagenUpload = evt.target.files[0];
       const reader = new FileReader();
       reader.onload = e => this.crearPregunta.controls['files'].setValue(reader.result);

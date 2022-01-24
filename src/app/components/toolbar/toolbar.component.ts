@@ -50,7 +50,7 @@ export class ToolbarComponent implements OnInit {
           });
     }
     setJuego(juego:any) {
-        console.log("esto seleccione: ", juego);
+        
         //aqui enviamos la lista de juegos obtenida al servicio de actualizacion de juegos, para que sea guardado en el storage
         this._authenticationService.filterGames(juego);
     }
@@ -58,9 +58,9 @@ export class ToolbarComponent implements OnInit {
     getJuegos(){
         this._toolbarnService.getJuegosUsuario(this._authenticationService.getIdUser()+"").subscribe(
             (res) => {
-                console.log(res);
+               
                 this.juegos = res;
-                console.log(this.juegos);
+                
                 this.form.controls['game'].setValue( this.juegos[0], {onlySelf: true});
                 this._authenticationService.setInicioJuego(this.juegos[0]);
             },

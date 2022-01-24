@@ -34,7 +34,7 @@ export class EditarJuegosComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializarForm();
-    console.log("me llamaron con este objeto: ", this.juegoActual);
+    
   }
 
   private inicializarForm(){
@@ -48,7 +48,7 @@ export class EditarJuegosComponent implements OnInit {
     });
     this.inicializarData();
     this.crearJuego.valueChanges.subscribe((productosTabla) => {
-      console.log("nuevos datos formulario", productosTabla);
+      
     });
   }
 
@@ -103,7 +103,7 @@ export class EditarJuegosComponent implements OnInit {
     const spinnerRef = this.spinner.start("Actualizando.....");
     this.juegoService.updateJuego(juego).subscribe(
       (res) => {
-          console.log(res);
+       
           this.spinner.stop(spinnerRef);
           this.activeModal.close(ESTADO_MODAL_CORRECTO); 
       },

@@ -8,7 +8,7 @@ export class ToolbarUpdateService {
   constructor() {}
 
   updateToolbar(){
-    console.log("SI LLEGUUE AL SERVICIOOOOO");
+    
     this.messageReceived.emit();  
 
   }

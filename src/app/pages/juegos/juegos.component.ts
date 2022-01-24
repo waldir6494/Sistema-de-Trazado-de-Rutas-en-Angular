@@ -34,9 +34,9 @@ export class JuegosComponent implements OnInit {
     const spinnerRef = this.spinner.start("Cargando....");
     this.juegoService.getJuegosUsuario(this.authenticationService.getIdUser()+"").subscribe(
         (res) => {
-            console.log(res);
+            
             this.juegos = res;
-            console.log(this.juegos);
+            
             this.spinner.stop(spinnerRef);
         },
         (error) => {
@@ -49,18 +49,18 @@ export class JuegosComponent implements OnInit {
   }
 
   updateJuegoPagina(){
-    console.log("si me llamaronnn");
+    
     this.getJuegos();
   }
 
   getJuegoPagina($event:string){
-    console.log("esto recibo del hijo", $event);
+    
     const spinnerRef = this.spinner.start("Cargando....");
     this.juegoService.getJuegosPagina($event).subscribe(
       (res) => {
-          console.log(res);
+          
           this.juegos = res;
-          console.log(this.juegos);
+        
           this.spinner.stop(spinnerRef);
       },
       (error) => {
@@ -74,18 +74,18 @@ export class JuegosComponent implements OnInit {
 
   crearJuego() {
     this.modalService.open(CrearJuegosComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-      console.log(result);
+     
       if(result == ESTADO_MODAL_CORRECTO){
         this.getJuegos();
         this.alert.start("¡Se guardó el juego de manera correcta!", 'success');
-        console.log("recargue la paggg");
+    
       }
       
       if(result == ESTADO_MODAL_ERROR){
         this.alert.start("Ocurrió un error al guardar el juego, intentelo mas tarde", 'error');
       }
     }, (reason) => {
-      console.log("cerre mal");
+    
       
       /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
     });

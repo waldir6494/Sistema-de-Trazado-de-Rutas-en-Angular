@@ -43,7 +43,7 @@ export class JugadorService {
     }
 
     updateJugador(jugador:Jugador): Observable<Jugador>{
-        console.log("esto me llega al servicio", jugador);
+       
         const url = `${this.host}/actualizarJugadores/${jugador.idJugador}`;
         return this.http
                     .put<Jugador>(url, jugador, { headers: this.headers })
@@ -69,6 +69,26 @@ export class JugadorService {
         return this.http
                         .get<Generico>(url)
                         .pipe(catchError(this.handleError));
+    }
+
+    getExcelParticipantes(){
+        const url = `${this.host}/plantillaParticipantes`;
+        return this.http
+                        .get<any>(url)
+                        .pipe(catchError(this.handleError));
+    }
+
+    saveJugadoresExcel(idJuego:string,archivo:File){
+        const url = `${this.host}/excelJugador`;
+        const token = localStorage.getItem('gameToken');
+        const headers = new HttpHeaders({ 'Authorization': 'Bearer '+token });
+        
+        const formData:FormData = new FormData();
+        formData.append('idJuego',idJuego);
+        formData.append('files',archivo);
+        return this.http
+                    .post<any>(url, formData, { headers: headers })
+                    .pipe(catchError(this.handleError));
     }
 
     /* getJuegosPagina(url: string): Observable<JuegoPaginate> {

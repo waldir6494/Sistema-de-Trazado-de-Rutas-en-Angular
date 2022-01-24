@@ -11,13 +11,15 @@ import { injectableParticipantes } from './participantes.injectable';
 import { ListarParticipantesComponent } from './listar-participantes/listar-participantes.component';
 import { CrearParticipanteComponent } from './crear-participante/crear-participante.component';
 import { EditarParticipanteComponent } from './editar-participante/editar-participante.component';
+import { ExcelComponent } from './excel/excel.component';
 
 @NgModule({
   declarations: [
     ParticipantesComponent,
     ListarParticipantesComponent,
     CrearParticipanteComponent,
-    EditarParticipanteComponent
+    EditarParticipanteComponent,
+    ExcelComponent
   ],
   imports: [
     CommonModule,

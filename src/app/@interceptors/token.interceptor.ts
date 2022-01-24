@@ -44,8 +44,12 @@ export class TokenInterceptor implements HttpInterceptor {
     if((request.url).includes('subirImagen')){
       return request;
     }
-
+    
     if((request.url).includes('actualizarPregunta')){
+      return request;
+    }
+
+    if((request.url).includes('excelJugador')){
       return request;
     }
 

@@ -105,7 +105,7 @@ export class TrazadoMapaComponent implements OnInit {
     });
 
     this.crearJuego.valueChanges.subscribe((productosTabla) => {
-      console.log("nuevos datos formulario", productosTabla);
+    
     });
     this.iniciarJuego();
     this.filterJuegosNext();
@@ -174,7 +174,7 @@ export class TrazadoMapaComponent implements OnInit {
 
   filterJuegosNext() {
     this.authenticationService.messageReceived.subscribe((juego: any) => {
-      console.log("esto si escuche en el listado: ", juego);
+      
         this.iniciarJuego();
     });
   }
@@ -196,7 +196,7 @@ export class TrazadoMapaComponent implements OnInit {
            // this.callApi(longitude, latitude);
           });
       } else {
-         console.log("No support for geolocation")
+         
       }
   }
   
@@ -213,7 +213,7 @@ export class TrazadoMapaComponent implements OnInit {
   }
 
   escogerRutaParaTodos(id){
-    console.log("ID ESCOGIDO "+id);
+    
     this.jugadorService.getJugadores(this.idJuego).subscribe((data : any)=>{
         this.jugadores = data;
         //console.log(this.jugadores);
@@ -454,8 +454,7 @@ export class TrazadoMapaComponent implements OnInit {
     
     const pointA = new google.maps.LatLng(this.newMarkerStart.latitude,this.newMarkerStart.longitude);
     const pointB = new google.maps.LatLng(this.newMarkerEnd.latitude,this.newMarkerEnd.longitude);
-    console.log("start", pointA);
-    console.log("end", pointB);
+   
     const Distance = google.maps.geometry.spherical.computeDistanceBetween(pointA, pointB);
 
     let route: Route = {
@@ -464,8 +463,7 @@ export class TrazadoMapaComponent implements OnInit {
         distance:Distance
       }
         this.routeList.push(route);
-        console.log("label del inicio"+"\t"+this.buscarID(this.newMarkerStart));
-        console.log("label del final"+"\t"+this.buscarID(this.newMarkerEnd));
+        
         let newTrama:Trama = {
         idPuntoOrigen:this.buscarID(this.newMarkerStart),
         idPuntoDestino:this.buscarID(this.newMarkerEnd),
@@ -482,28 +480,27 @@ export class TrazadoMapaComponent implements OnInit {
     const spinnerRef = this.spinner.start("Registrando punto....");
     this.puntoService.save(puntos).subscribe((data: Puntos) =>{
     this.puntoRespuesta = data;
-    console.log(data);
-    console.log("este es antes de asignar"+"\t"+this.puntoRespuesta.idPuntos);
+    
       this.markerList[cont].id = this.puntoRespuesta.idPuntos;
-      console.log("este es despues de asignar"+"\t"+this.markerList[cont].id);
+      
       this.contadorGeneral++;
     this.spinner.stop(spinnerRef);
     this.alert.start("¡El punto se guardó de manera correcta!", 'success');
     }, (error) => {
-      console.log(error);
+    
       this.alert.start("Ocurrió un error al guardar el punto, intentelo más tarde.", 'error');
     });
   }
 
   obtenerRutas(){
-    console.log("toy clickeando aca");
+ 
     if(this.cantidadPermitido == 0){
-      console.log("entre");
+    
       this.alert.start(`Primero debes generar almenos una pregunta`, 'error');
       return;
     }
     if(this.cantidadNodo == 0){
-      console.log("entre");
+  
       this.alert.start(`La cantidad de nodos no puede ser 0`, 'error');
       return;
     }
@@ -521,11 +518,11 @@ export class TrazadoMapaComponent implements OnInit {
           this.etiquetarNuevasRutas();
           this.spinner.stop(spinnerRef);
           this.alert.start("¡Se generaron las rutas de manera correcta!", 'success');
-          console.log(data);
+        
         }, (error) => {
             this.spinner.stop(spinnerRef);
             this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
-            console.log(error);
+         
         });
     }else{
       const spinnerRef = this.spinner.start("Obteniendo rutas....");
@@ -534,16 +531,16 @@ export class TrazadoMapaComponent implements OnInit {
             tamanio:this.cantidadNodo,
             idPunto:this.buscarID(this.markerUnica)
           }
-      console.log("MARKER UNICA"+ consultar.idPunto + "CANTIDAD NODOS " + consultar.tamanio);
+    
       this.tramaService.getRutasUnica(consultar).subscribe((data: ObtenerRutas[]) => {
       this.nuevasBalanceadas = data;
       this.etiquetarNuevasRutas();
       this.spinner.stop(spinnerRef);
-      console.log(data);
+   
     }, (error) => {
         this.spinner.stop(spinnerRef);
         this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
-        console.log(error);
+   
     });
     }
     }
@@ -552,18 +549,18 @@ export class TrazadoMapaComponent implements OnInit {
   mostrarTabla(){
 
     if (this.consultarT.tamanio==0) {
-     console.log("NO HICE NADA ASI Q RETURN");
+
      return;
     }
    
        this.tramaService.getRutasUnicaT(this.consultarT).subscribe((data: ObtenerRutas[]) => {
    
        this.nuevasBalanceadas = data;
-       console.log("NUEVAS BALANCEADASSSS: ",  this.nuevasBalanceadas);
+  
        this.etiquetarNuevasRutas();
-       console.log(data);
+      
      }, (error) => {
-       console.log(error);
+      
      });
    
    }
@@ -574,26 +571,24 @@ export class TrazadoMapaComponent implements OnInit {
     if(this.consultarT.tamanio > 0){
       this.generacionRutas = false;
     }
-    console.log("TAMANIO"+this.consultarT.tamanio);
+    
     this.consultarRutasGeneradas();
     }, (error) => {
-      console.log(error);
+      
     });
   }
 
   consultarRutasGeneradas(){
     this.tramaService.consultarRutasGeneradas(this.idJuego).subscribe((data: any) => {
-    console.log('data '+data[0].idRuta);
-    console.log("cantidad de rutassssssssssssss: ", data);
-    console.log("cantidad de rutassssssssssssss: ", data.length);
+
     this.cantidadRutasGeneral = data.length;
     this.idsRutas=data;
     this.consultarT.idPunto=data[0].idPuntoPartida;
     this.consultarT.idJuego=this.idJuego;
-    console.log("CONSULTAR T "+ this.consultarT.idJuego+" "+ this.consultarT.tamanio+" "+ this.consultarT.idPunto+" ");
+  
     this.mostrarTabla();
     }, (error) => {
-      console.log(error);
+  
     });
 
   }
@@ -613,13 +608,13 @@ export class TrazadoMapaComponent implements OnInit {
 
   HacerTrazo(rutas: ObtenerRutas){
     this.EliminarTrazo();
-    console.log(rutas);
+  
     for(var j = 0; j < rutas.visited_nodes.length; j++){
     for(var i =0; i<this.markerList.length; i++){
   
           if(this.markerList[i].label === rutas.visited_nodes[j]){
             this.dibujarRutaSeleccionada.push(this.markerList[i]);
-            console.log(this.markerList[i]);
+            
           }
         }
     }
@@ -629,9 +624,7 @@ export class TrazadoMapaComponent implements OnInit {
     this.botonPunto=true;
     this.seleccionPunto = true;
     this.seleccionAleatorio = false;
-    console.log(this.seleccionPunto);
-    console.log(this.seleccionAleatorio);
-    console.log("marcaste punto");
+
   }
 
   HabilitarCasilla(){
@@ -643,21 +636,19 @@ export class TrazadoMapaComponent implements OnInit {
     this.habilitarCasilla=false;
     this.seleccionPunto = false;
     this.seleccionAleatorio = true;
-    console.log(this.seleccionPunto);
-    console.log(this.seleccionAleatorio);
-  console.log("marcaste aleatorio");
+  
   }
 
   disableEditableMarker(){
     //asdasdasds
-      console.log("DISABLE MARKERS");
+    
       this.marKerEditable=false;
   }
   enableMarkers(){
     this.marKerEditable=true;
   }
   sayChesse(){
-      console.log("Chesse");
+     
   }
 
   transformar(coordenada:any){

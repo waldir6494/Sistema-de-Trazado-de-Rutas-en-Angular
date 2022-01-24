@@ -67,7 +67,7 @@ export class MapaSeguimientoComponent implements OnInit {
     this.monitoreoService.getPuntosJugador(idJugador).subscribe((data)=>{
       this.rutaJugadorActual=data;
     },(error)=>{
-        console.log(error);
+    
         alert('Ocurrio un error');
      });
 
@@ -91,7 +91,7 @@ export class MapaSeguimientoComponent implements OnInit {
 	  		}
 	  		this.verTodo=true;
   		},(error)=>{
-          console.log(error);
+          
           alert('Ocurrio un error mostrar todas las rutas');
        });
   }

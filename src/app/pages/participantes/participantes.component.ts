@@ -8,6 +8,7 @@ import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { CrearParticipanteComponent } from './crear-participante/crear-participante.component';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
 import { Subject, forkJoin } from 'rxjs';
+import { ExcelComponent } from './excel/excel.component';
 
 @Component({
   selector: 'app-participantes',
@@ -52,7 +53,7 @@ export class ParticipantesComponent implements OnInit {
       }else{
         this.habilitarNotificacion = false;
       }
-      console.log(this.jugadores);
+  
       this.spinner.stop(spinnerRef);
 
     }),
@@ -90,6 +91,23 @@ export class ParticipantesComponent implements OnInit {
     });
   }
   
+  cargarArchivos() {
+    this.modalService.open(ExcelComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+      console.log(result);
+      if(result == ESTADO_MODAL_CORRECTO){
+        this.getParticipantes();
+        console.log("recargue la paggg");
+      }
+      
+      if(result == ESTADO_MODAL_ERROR){
+        this.alert.start("Ocurrió un error, intentelo mas tarde", 'error');
+      }
+    }, (reason) => {
+      console.log("cerre mal");
+      
+      /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
+    });
+  }
 
   crearParticipante() {
     this.modalService.open(CrearParticipanteComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {

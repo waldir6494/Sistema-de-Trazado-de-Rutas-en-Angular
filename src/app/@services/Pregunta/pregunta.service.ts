@@ -94,7 +94,7 @@ export class PreguntaService {
         formData.append('idJuego',pregunta.idJuego);
         formData.append('Pregunta',pregunta.Pregunta);
         formData.append('Respuesta',pregunta.Respuesta);
-        console.log(formData);
+        
     
         return this.http
                     .post<Pregunta>(url, formData)
@@ -111,7 +111,7 @@ export class PreguntaService {
         formData.append('Pregunta',pregunta.Pregunta);
         formData.append('Respuesta',pregunta.Respuesta);
         formData.append('Imagen',pregunta.Imagen);
-        console.log(formData);
+        
     
         return this.http
                     .post<Pregunta>(url, formData)

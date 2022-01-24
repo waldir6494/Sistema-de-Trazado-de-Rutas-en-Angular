@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public logout(){
-    console.log("salioo");
+
     this.authenticationService.logout();
     this.router.navigate(['juegos']);
   }

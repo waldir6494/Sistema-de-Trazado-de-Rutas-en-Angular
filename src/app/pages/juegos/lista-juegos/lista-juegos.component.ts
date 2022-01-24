@@ -47,26 +47,26 @@ export class ListaJuegosComponent implements OnInit {
         //this.getJuegos();
         this.updateJuegoPagina.emit();
         this.alert.start("¡Los cambios se guardaron de manera correcta!", 'success');
-        console.log("recargue la paggg");
+        
       }
       
       if(result == ESTADO_MODAL_ERROR){
         this.alert.start("Ocurrió un error al actualizar el juego, intentelo mas tarde", 'error');
       }
     }, (reason) => {
-      console.log("cerre mal");
+      
       
       /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
     });
     /* const spinnerRef = this.spinner.start("pruebaCarga"); */
-    console.log("deberia salir el spinner porque me");
+    
   }
 
   eliminarJuego(juego:Juego){
     const spinnerRef = this.spinner.start("Eliminando.....");
     this.juegoService.deleteJuego(juego.idJuego).subscribe(
       (res) => {
-          console.log(res);
+          
           this.spinner.stop(spinnerRef);
           this.updateJuegoPagina.emit();
           this.alert.start("Se eliminó el registro de manera correcta!", 'success');
@@ -82,7 +82,7 @@ export class ListaJuegosComponent implements OnInit {
       },
     );
 
-    console.log("deberia salir la alerta");
+   
   }
 
 }

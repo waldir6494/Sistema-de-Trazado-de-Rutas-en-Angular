@@ -160,7 +160,7 @@ export class AuthenticationService {
         let suc = sucursales.length > 1 ? '' : sucursales.map((suc) => suc.idSucursal);
         localStorage.setItem(this.tokenSucursal, suc.toString()); */
         
-        console.log("guarde esto en el storage", juego);
+ 
         localStorage.setItem(this.idJuegoSeleccionado, `${juego.idJuego}`);
         localStorage.setItem(this.nombreJuegoSeleccionado, juego.NombreJuego);
         this.messageReceived.emit(juego);

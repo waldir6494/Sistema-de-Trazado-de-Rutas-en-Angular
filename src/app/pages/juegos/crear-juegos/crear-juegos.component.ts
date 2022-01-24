@@ -46,7 +46,7 @@ export class CrearJuegosComponent implements OnInit {
     });
 
     this.crearJuego.valueChanges.subscribe((productosTabla) => {
-      console.log("nuevos datos formulario", productosTabla);
+      
     });
   }
 
@@ -81,7 +81,7 @@ export class CrearJuegosComponent implements OnInit {
     const spinnerRef = this.spinner.start("Guardando.....");
     this.juegoService.saveJuego(juego).subscribe(
       (res) => {
-          console.log(res);
+       
           this.spinner.stop(spinnerRef);
           this._toolbarUpdateService.updateToolbar();
           this.activeModal.close(ESTADO_MODAL_CORRECTO); 
