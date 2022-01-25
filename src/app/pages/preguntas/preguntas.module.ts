@@ -12,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { injectablePreguntas } from './preguntas.injectable';
 import { ImagenVistaComponent } from './imagen-vista/imagen-vista.component';
-
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { ImagenVistaComponent } from './imagen-vista/imagen-vista.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule, 
+    AngularEditorModule
   ],
   providers: [injectablePreguntas],
 })

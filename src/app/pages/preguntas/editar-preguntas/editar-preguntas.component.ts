@@ -7,7 +7,7 @@ import { PreguntaService } from 'src/app/@services/Pregunta/pregunta.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
 import { AlertService } from 'src/app/shared/alert/alert.service';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-editar-preguntas',
@@ -51,7 +51,29 @@ export class EditarPreguntasComponent implements OnInit {
     });
   }
 
-
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Ingrese la pregunta...',
+    translate: 'no',
+    customClasses: [ // optional
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 
   public obtenerPregunta(){
     const spinnerRef = this.spinner.start("Consultando.....");

@@ -81,7 +81,7 @@ export class PreguntasComponent implements OnInit {
   }
 
   crearPregunta() {
-    this.modalService.open(CrearPreguntasComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+    this.modalService.open(CrearPreguntasComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'lg'}).result.then((result) => {
       console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         this.getPreguntas();

@@ -18,7 +18,8 @@
                       {{preguntasPadre.from + indx}}
                   </td>
                   <td>
-                      {{ pregunta.Pregunta }}
+                    <div [innerHTML]=" pregunta.Pregunta "></div>
+                    <!--   <html>{{ pregunta.Pregunta }}</html> -->
                   </td>
                   <td class ="center-table-elements">
                       {{ pregunta.Respuesta }}

@@ -40,7 +40,7 @@ export class ListaPreguntasComponent implements OnInit {
   }
 
   editarJuego(pregunta:number){
-    const ref = this.modalService.open(EditarPreguntasComponent, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    const ref = this.modalService.open(EditarPreguntasComponent, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'lg'});
     ref.componentInstance.id = pregunta;
     ref.result.then((result) => {
       console.log(result);

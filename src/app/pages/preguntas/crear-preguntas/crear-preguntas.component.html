@@ -13,7 +13,8 @@
 
           <div class="form-group">
             <label class="form-control-label">Pregunta:</label>
-              <input formControlName="pregunta" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese la pregunta">
+              <!-- <input formControlName="pregunta" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese la pregunta"> -->
+              <angular-editor formControlName="pregunta" [config]="editorConfig"></angular-editor>
               <ng-container *ngIf="crearPregunta.controls['pregunta'].hasError('required')">
                 <label class="input-error-message">*Este campo es requerido.</label>
               </ng-container>
