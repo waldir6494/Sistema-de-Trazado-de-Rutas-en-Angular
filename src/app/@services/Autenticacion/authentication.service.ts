@@ -15,7 +15,6 @@ import { Usuario } from 'src/app/@models/Usuario/usuario.model';
 import { Juego } from 'src/app/@models/Juego/juego.model';
 import { UsuarioRegistro } from 'src/app/@models/Autenticacion/usuario-registro.model';
 /* import { IDMODULO, ID_SREASONS, MODULO, TIPO_ENTIDAD, ID_ORIGEN } from '../../pages/pages.constants'; */
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -37,8 +36,7 @@ export class AuthenticationService {
     messageReceived = new EventEmitter<any>();
 
     constructor(
-        private http: HttpClient,
-        private router: Router
+        private http: HttpClient
         /* private http: HttpClient,
         private encryptService: EncryptService,
         private controlAcessosService: ControlAcessosService, */
@@ -129,7 +127,6 @@ export class AuthenticationService {
         localStorage.removeItem(this.idUsuario);
         localStorage.removeItem(this.nombre);
         localStorage.removeItem(this.correo);
-        this.router.navigate(['login']);
         //this.controlAcessosService.clearRutas();
         //this.controlAcessosService.clearControles();
     } 
