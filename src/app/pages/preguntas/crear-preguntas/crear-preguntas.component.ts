@@ -34,7 +34,7 @@ export class CrearPreguntasComponent implements OnInit {
     this.inicializarForm();
   }
 
-  editorConfig: AngularEditorConfig = {
+  /* editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
@@ -56,7 +56,7 @@ export class CrearPreguntasComponent implements OnInit {
         tag: "h1",
       },
     ]
-  };
+  }; */
 
   private inicializarForm(){
     this.crearPregunta = this.fb.group({

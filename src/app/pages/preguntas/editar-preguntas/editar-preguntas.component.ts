@@ -51,7 +51,7 @@ export class EditarPreguntasComponent implements OnInit {
     });
   }
 
-  editorConfig: AngularEditorConfig = {
+  /* editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
@@ -73,7 +73,7 @@ export class EditarPreguntasComponent implements OnInit {
         tag: "h1",
       },
     ]
-  };
+  }; */
 
   public obtenerPregunta(){
     const spinnerRef = this.spinner.start("Consultando.....");
