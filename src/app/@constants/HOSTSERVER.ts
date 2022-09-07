@@ -1,1 +1,1 @@
-export const HOSTSERVER = 'https://proyecto-back-unsa.herokuapp.com/api';
+export const HOSTSERVER = 'https://demo-logistica-pnp.relengcorp.com/api';
