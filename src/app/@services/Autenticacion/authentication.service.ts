@@ -239,7 +239,7 @@ export class AuthenticationService {
     }
 
     registrar(usuario: UsuarioRegistro){
-        const url = `${this.host}/register`;
+        const url = `${this.host}/new_register`;
         return this.http
                     .post<any>(url, usuario)
                     .pipe(catchError(this.handleError));
