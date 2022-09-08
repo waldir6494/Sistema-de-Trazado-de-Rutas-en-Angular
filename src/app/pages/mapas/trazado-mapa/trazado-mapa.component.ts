@@ -533,10 +533,13 @@ export class TrazadoMapaComponent implements OnInit {
           }
     
       this.tramaService.getRutasUnica(consultar).subscribe((data: ObtenerRutas[]) => {
+        
       this.nuevasBalanceadas = data;
       this.etiquetarNuevasRutas();
       this.spinner.stop(spinnerRef);
-   
+      this.alert.start("¡Se generaron las rutas de manera correcta!", 'success');
+      this.iniciarJuego();
+      
     }, (error) => {
         this.spinner.stop(spinnerRef);
         this.alert.start("Ocurrió un error al generar las rutas, intentelo mas tarde", 'error');
