@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
+  public nombreJugador = ""; 
+
   constructor(
     location: Location,  
     private element: ElementRef,
@@ -23,6 +25,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.nombreJugador = localStorage.getItem('correo');
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());

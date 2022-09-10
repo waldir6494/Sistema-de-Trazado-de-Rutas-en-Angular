@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditarJuegosComponent } from 'src/app/pages/juegos/editar-juegos/editar-juegos.component';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
+import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
 
 @Component({
   selector: 'app-lista-juegos',
@@ -25,6 +26,7 @@ export class ListaJuegosComponent implements OnInit {
     private spinner: SpinnerService,
     private alert: AlertService,
     private modalService: NgbModal,
+    private _toolbarUpdateService:ToolbarUpdateService,
     private juegoService: JuegoService
   ) { }
 
@@ -69,6 +71,11 @@ export class ListaJuegosComponent implements OnInit {
           
           this.spinner.stop(spinnerRef);
           this.updateJuegoPagina.emit();
+          let idActual = localStorage.getItem('idJuegoSeleccionado');
+          if(Number(idActual) == juego.idJuego){
+            localStorage.removeItem('idJuegoSeleccionado');
+          }
+          this._toolbarUpdateService.updateToolbar();
           this.alert.start("Se eliminó el registro de manera correcta!", 'success');
           
       },
@@ -77,6 +84,7 @@ export class ListaJuegosComponent implements OnInit {
           //this.badCredentials = true;
           this.spinner.stop(spinnerRef);
           this.updateJuegoPagina.emit();
+          this.alert.start("Ocurrió un error al elimnar el juego, intentelo mas tarde", 'error');
           console.error('Ocurrio error login', error);
           
       },

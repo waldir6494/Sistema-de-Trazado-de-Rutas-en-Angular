@@ -1,150 +1,155 @@
-<div class = "large-table">
-  <div class="table-responsive">
-    <table class="table align-items-center table-flush">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">N°</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Fecha de Inicio</th>
-          <th scope="col">Fecha de Finalización</th>
-          <th scope="col">Tiempo</th>
-          <th scope="col">Intentos Permitidos</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Acciones</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let juego of juegosPadre.data; let indx = index">
-            <tr>
-                <td>
-                    {{juegosPadre.from + indx}}
-                </td>
-                <td>
-                    {{ juego.NombreJuego }}
-                </td>
-                <td>
-                    {{ juego.Inicio }}
-                </td>
-            <!-- <td>
-                <span class="badge badge-dot mr-4">
-                <i class="bg-warning"></i> pending
-                </span>
-            </td> -->
+<ng-container *ngIf="juegosPadre.from">
+  <div class = "large-table">
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Fecha de Finalización</th>
+            <th scope="col">Tiempo</th>
+            <th scope="col">Intentos Permitidos</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let juego of juegosPadre.data; let indx = index">
+              <tr>
+                  <td>
+                      {{juegosPadre.from + indx}}
+                  </td>
+                  <td>
+                      {{ juego.NombreJuego }}
+                  </td>
+                  <td>
+                      {{ juego.Inicio }}
+                  </td>
+              <!-- <td>
+                  <span class="badge badge-dot mr-4">
+                  <i class="bg-warning"></i> pending
+                  </span>
+              </td> -->
 
-            <!-- <td>
-            <span class="badge badge-dot">
-                <i class="bg-success"></i> completed
-            </span>
-            </td> -->
-                <td>
-                    {{ juego.Fin }}
-                </td>
-                <td>
-                    {{ juego.Tiempo }}
-                </td>
-                <td>
-                    {{ juego.Intentos }}
-                </td>
-                <td>
-                    <ng-contanier *ngIf = "juego.Cerrado == 0">
-                        <span class="badge badge-dot mr-4">
-                            <i class="bg-warning"></i> En proceso
-                        </span>
-                    </ng-contanier>
+              <!-- <td>
+              <span class="badge badge-dot">
+                  <i class="bg-success"></i> completed
+              </span>
+              </td> -->
+                  <td>
+                      {{ juego.Fin }}
+                  </td>
+                  <td>
+                      {{ juego.Tiempo }}
+                  </td>
+                  <td>
+                      {{ juego.Intentos }}
+                  </td>
+                  <td>
+                      <ng-contanier *ngIf = "juego.Cerrado == 0">
+                          <span class="badge badge-dot mr-4">
+                              <i class="bg-warning"></i> En proceso
+                          </span>
+                      </ng-contanier>
 
-                    <ng-contanier *ngIf = "juego.Cerrado == 1">
-                        <span class="badge badge-dot">
-                            <i class="bg-success"></i> Culminado
-                        </span>
-                    </ng-contanier>
+                      <ng-contanier *ngIf = "juego.Cerrado == 1">
+                          <span class="badge badge-dot">
+                              <i class="bg-success"></i> Culminado
+                          </span>
+                      </ng-contanier>
+                      
+                  </td>
+
+                  <td>
+                      <!-- Boton para editar -->
+                      <div class = "d-flex justify-content-around">
+                      <button type="button" class="btn-sm btn-outline-primary" (click) = "editarJuego(juego)">
+                          <svg width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                              <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                          </svg>
+                      </button>
+              
+                      <!-- Boton para eliminar -->
                     
-                </td>
+                      <button type="button" class="btn-sm btn-outline-danger" (click) = "eliminarJuego(juego)">
+                          <svg width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                          </svg>
+                      </button>
+                      </div>
+                  </td>
+              </tr>
 
-                <td>
-                    <!-- Boton para editar -->
-                    <div class = "d-flex justify-content-around">
-                    <button type="button" class="btn-sm btn-outline-primary" (click) = "editarJuego(juego)">
-                        <svg width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                        </svg>
-                    </button>
-            
-                    <!-- Boton para eliminar -->
-                  
-                    <button type="button" class="btn-sm btn-outline-danger" (click) = "eliminarJuego(juego)">
-                        <svg width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                        </svg>
-                    </button>
-                    </div>
-                </td>
-            </tr>
         </ng-container>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div class="card-footer py-4">
-  <nav aria-label="...">
-    <ul class="pagination justify-content-end mb-0">
-      <ng-container *ngIf="!juegosPadre.prev_page_url">
-        <li class="page-item disabled">
-          <a class="page-link" (click)="getJuegoPaginate(juegosPadre.prev_page_url)">
-            <i class="fas fa-angle-left"></i>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-      </ng-container>
-      <ng-container *ngIf="juegosPadre.prev_page_url">
-        <li class="page-item">
-          <a class="page-link" (click)="getJuegoPaginate(juegosPadre.prev_page_url)">
-            <i class="fas fa-angle-left"></i>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-      </ng-container>
-
-      <ng-container *ngFor="let page of paginate; let indx = index">
-        <ng-container *ngIf="(indx+1) == juegosPadre.current_page">
-          <li class="page-item active">
-            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.path+'?page='+(indx+1))">{{indx+1}}</a>
+  <div class="card-footer py-4">
+    <nav aria-label="...">
+      <ul class="pagination justify-content-end mb-0">
+        <ng-container *ngIf="!juegosPadre.prev_page_url">
+          <li class="page-item disabled">
+            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.prev_page_url)">
+              <i class="fas fa-angle-left"></i>
+              <span class="sr-only">Previous</span>
+            </a>
           </li>
         </ng-container>
-        <ng-container *ngIf="(indx+1) != juegosPadre.current_page">
+        <ng-container *ngIf="juegosPadre.prev_page_url">
           <li class="page-item">
-            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.path+'?page='+(indx+1))">{{indx+1}}</a>
+            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.prev_page_url)">
+              <i class="fas fa-angle-left"></i>
+              <span class="sr-only">Previous</span>
+            </a>
           </li>
         </ng-container>
-      </ng-container>
 
-<!--                 <li class="page-item active">
-        <a class="page-link" href="javascript:void(0)"> {{juegosPadre.current_page}}</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="javascript:void(0)">2</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li> -->
+        <ng-container *ngFor="let page of paginate; let indx = index">
+          <ng-container *ngIf="(indx+1) == juegosPadre.current_page">
+            <li class="page-item active">
+              <a class="page-link" (click)="getJuegoPaginate(juegosPadre.path+'?page='+(indx+1))">{{indx+1}}</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="(indx+1) != juegosPadre.current_page">
+            <li class="page-item">
+              <a class="page-link" (click)="getJuegoPaginate(juegosPadre.path+'?page='+(indx+1))">{{indx+1}}</a>
+            </li>
+          </ng-container>
+        </ng-container>
 
-      <ng-container *ngIf="!juegosPadre.next_page_url">
-        <li class="page-item disabled">
-          <a class="page-link" (click)="getJuegoPaginate(juegosPadre.next_page_url)">
-            <i class="fas fa-angle-right"></i>
-            <span class="sr-only">Next</span>
-          </a>
+  <!--                 <li class="page-item active">
+          <a class="page-link" href="javascript:void(0)"> {{juegosPadre.current_page}}</a>
         </li>
-      </ng-container>
-      <ng-container *ngIf="juegosPadre.next_page_url">
         <li class="page-item">
-          <a class="page-link" (click)="getJuegoPaginate(juegosPadre.next_page_url)">
-            <i class="fas fa-angle-right"></i>
-            <span class="sr-only">Next</span>
-          </a>
+          <a class="page-link" href="javascript:void(0)">2</a>
         </li>
-      </ng-container>
+        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li> -->
 
-    </ul>
-  </nav>
-</div>
+        <ng-container *ngIf="!juegosPadre.next_page_url">
+          <li class="page-item disabled">
+            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.next_page_url)">
+              <i class="fas fa-angle-right"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="juegosPadre.next_page_url">
+          <li class="page-item">
+            <a class="page-link" (click)="getJuegoPaginate(juegosPadre.next_page_url)">
+              <i class="fas fa-angle-right"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ng-container>
 
+      </ul>
+    </nav>
+  </div>
+</ng-container>
+<ng-container *ngIf="!juegosPadre.from">
+  <h2 class="text-center text-danger large-table">Para acceder a las siguientes opciones debe crear un juego primero</h2>
+</ng-container>

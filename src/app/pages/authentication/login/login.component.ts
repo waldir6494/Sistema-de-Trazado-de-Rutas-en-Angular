@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/@models/Usuario/usuario.model';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private authenticationService: AuthenticationService,
     private router: Router,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private alert: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class LoginComponent implements OnInit {
             //this.spinnerService.stop(spinnerRef);
             //this.badCredentials = true;
             this.spinner.stop(spinnerRef);
+            this.alert.start("Usuario o contraseña incorrecta, intentelo de nuevo", 'error');
             console.error('Ocurrio error login', error);
         },
     );

@@ -7,6 +7,7 @@ import { CrearJuegosComponent } from 'src/app/pages/juegos/crear-juegos/crear-ju
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
+import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
 
 @Component({
   selector: 'app-juegos',
@@ -23,7 +24,8 @@ export class JuegosComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private modalService: NgbModal,
     private spinner: SpinnerService,
-    private alert: AlertService
+    private alert: AlertService,
+    private _toolbarUpdateService:ToolbarUpdateService
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +79,7 @@ export class JuegosComponent implements OnInit {
      
       if(result == ESTADO_MODAL_CORRECTO){
         this.getJuegos();
+        this._toolbarUpdateService.updateToolbar();
         this.alert.start("¡Se guardó el juego de manera correcta!", 'success');
     
       }

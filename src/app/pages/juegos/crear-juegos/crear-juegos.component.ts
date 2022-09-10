@@ -83,7 +83,7 @@ export class CrearJuegosComponent implements OnInit {
       (res) => {
        
           this.spinner.stop(spinnerRef);
-          this._toolbarUpdateService.updateToolbar();
+          //this._toolbarUpdateService.updateToolbar();
           this.activeModal.close(ESTADO_MODAL_CORRECTO); 
       },
       (error) => {
