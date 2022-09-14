@@ -6,6 +6,8 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-editar-juegos',
@@ -27,6 +29,7 @@ export class EditarJuegosComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
+    private alert: AlertService,
     private juegoService: JuegoService,
     private authenticationService: AuthenticationService,
     private spinner: SpinnerService
@@ -85,6 +88,16 @@ export class EditarJuegosComponent implements OnInit {
     /* fecha y hora de culminación del juego */
     let fechaFinLocal = this.crearJuego.controls['fechaFin'].value;
     let horaFinLocal = this.crearJuego.controls['horaFin'].value;
+
+    let inicio: moment.Moment = moment(`${fechaInicioLocal.day}/${fechaInicioLocal.month}/${fechaInicioLocal.year} ${horaInicioLocal.hour}:${horaInicioLocal.minute}`, 'DD-MM-YYYY h:mm');
+    let fin: moment.Moment = moment(`${fechaFinLocal.day}/${fechaFinLocal.month}/${fechaFinLocal.year} ${horaFinLocal.hour}:${horaFinLocal.minute}`, 'DD-MM-YYYY h:mm');
+
+    if(inicio.isBefore(fin)){
+      
+    }else{
+      this.alert.start("La fecha de inicio no puede ser menor que la culminación", 'error');
+      return;
+    }
 
     juego.idJuego = this.juegoActual.idJuego;
     juego.idAdministrador = `${this.authenticationService.getIdUser()}`;

@@ -1,3 +1,4 @@
+<ng-container *ngIf="jugadoresPadre?.length > 0">
 <div class = "large-table">
     <div class="table-responsive altura-tabla">
 
@@ -82,4 +83,8 @@
             </table>
 
     </div>
-  </div> 
+  </div>
+</ng-container>
+<ng-container *ngIf="jugadoresPadre?.length == 0">
+  <h2 class="text-center text-danger altura-tabla">No existen jugadores registrados</h2>
+</ng-container>

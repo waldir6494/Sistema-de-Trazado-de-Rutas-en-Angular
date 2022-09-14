@@ -80,30 +80,30 @@ export class ParticipantesComponent implements OnInit {
   }
 
   updateJugadorPagina(){
-    console.log("si me llamaronnn");
+    //console.log("si me llamaronnn");
     this.getParticipantes();
   }
 
   filterJuegosNext() {
     this.authenticationService.messageReceived.subscribe((juego: any) => {
-      console.log("esto si escuche en el listado: ", juego);
+      //console.log("esto si escuche en el listado: ", juego);
         this.getParticipantes();
     });
   }
   
   cargarArchivos() {
     this.modalService.open(ExcelComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-      console.log(result);
+      //console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         this.getParticipantes();
-        console.log("recargue la paggg");
+        //console.log("recargue la paggg");
       }
       
       if(result == ESTADO_MODAL_ERROR){
         this.alert.start("Ocurrió un error, intentelo mas tarde", 'error');
       }
     }, (reason) => {
-      console.log("cerre mal");
+      //console.log("cerre mal");
       
       /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
     });
@@ -111,25 +111,25 @@ export class ParticipantesComponent implements OnInit {
 
   crearParticipante() {
     this.modalService.open(CrearParticipanteComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-      console.log(result);
+      //console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         this.getParticipantes();
         this.alert.start("¡Se registró al participante de manera correcta!", 'success');
-        console.log("recargue la paggg");
+        //console.log("recargue la paggg");
       }
       
       if(result == ESTADO_MODAL_ERROR){
         this.alert.start("Ocurrió un error al registrar al participante, intentelo mas tarde", 'error');
       }
     }, (reason) => {
-      console.log("cerre mal");
+      //console.log("cerre mal");
       
       /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
     });
   }
 
   presionarAll(){
-    console.log("si presionooo");
+    //console.log("si presionooo");
     if(this.checkAllSelected){
       this.checkAllSelected = false;
       this.eventsSubject.next();
@@ -141,20 +141,20 @@ export class ParticipantesComponent implements OnInit {
 
   notificarJugadores(){
     if(this.habilitarNotificacion){
-      this.alert.start("Para notificar primero debe dibujar el mapa y generar rutas", 'error');
+      this.alert.start("Para habilitar esta funcion primero debe dibujar un mapa y generar las rutas", 'error');
     }else{
-      console.log("clickeo padre");
+      //console.log("clickeo padre");
       this.eventsNotificate.next();
     }
   }
 
   activarBotonNotificacion(){
-    console.log("escuche activar boton");
+    //console.log("escuche activar boton");
     this.checkAllSelected = true;
   }
 
   desactivarBotonNotificacion(){
-    console.log("escuche desactivar boton");
+    //console.log("escuche desactivar boton");
     this.checkAllSelected = false;
   }
 

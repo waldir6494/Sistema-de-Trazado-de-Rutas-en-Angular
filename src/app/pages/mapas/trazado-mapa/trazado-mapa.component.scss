@@ -8,3 +8,19 @@ agm-map {
 .map-cnt {
   height: 200px;
 }
+
+
+.warning-color
+{
+    position: relative;
+
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+
+    border: 1px solid transparent;
+    border-radius: .375rem;
+
+    color: #fff;
+    border-color: #ff9811;
+    background-color: #ffba26;
+}

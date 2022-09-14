@@ -44,16 +44,20 @@ export class SidebarComponent implements OnInit {
         setTimeout( () => { 
           this.idJuego = this.authenticationService.getIdJuegoActual();
           this.crearOpciones();
-         }, 1000 );
+         }, 2000 );
 
       });
-    this.idJuego = this.authenticationService.getIdJuegoActual();
-    this.crearOpciones();
+    //this.idJuego = this.authenticationService.getIdJuegoActual();
+    //this.crearOpciones();
     //this.menuItems = ROUTES.filter(menuItem => menuItem);
 
-
-    console.log(this.menuItems);
-    console.log(this.idJuego);
+    setTimeout( () => { 
+      this.idJuego = this.authenticationService.getIdJuegoActual();
+      this.crearOpciones();
+     }, 3000 );
+    this.crearOpciones();
+    //console.log(this.menuItems);
+    //console.log(this.idJuego);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });

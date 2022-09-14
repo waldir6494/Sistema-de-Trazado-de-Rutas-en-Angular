@@ -32,7 +32,7 @@ export class ListaJuegosComponent implements OnInit {
 
   ngOnInit(): void {
     this.paginate = Array.from(Array(this.juegosPadre.last_page).keys());
-    console.log("estos son los juegos que me llegaron del padre: ", this.juegosPadre);
+    //console.log("estos son los juegos que me llegaron del padre: ", this.juegosPadre);
   }
 
   getJuegoPaginate(url:any){
@@ -44,7 +44,7 @@ export class ListaJuegosComponent implements OnInit {
     const ref = this.modalService.open(EditarJuegosComponent, {ariaLabelledBy: 'modal-basic-title', centered: true});
     ref.componentInstance.juegoActual = juego;
     ref.result.then((result) => {
-      console.log(result);
+      //console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         //this.getJuegos();
         this.updateJuegoPagina.emit();
@@ -92,5 +92,37 @@ export class ListaJuegosComponent implements OnInit {
 
    
   }
+
+  hallarDiferencia(fechaIncio:string, fechaFin:string){
+    let fechaInicioParceado = new Date(fechaIncio);
+    let fechaFinParceado = new Date(fechaFin);
+    return this.diff_minutes(fechaFinParceado, fechaInicioParceado);
+
+  }
+
+  diff_minutes(fecha1, fecha12) 
+  {
+    var diff =(fecha12.getTime() - fecha1.getTime()) / 1000;
+    diff /= 60;
+    return this.getDataHR(Math.abs(Math.round(diff)));
+  }
+
+  getDataHR (newMinutes) {
+    let MINS_PER_YEAR = 24 * 365 * 60
+    let MINS_PER_MONTH = 24 * 30 * 60
+    let MINS_PER_WEEK = 24 * 7 * 60
+    let MINS_PER_DAY = 24 * 60
+    let minutes = newMinutes;
+    let years = Math.floor(minutes / MINS_PER_YEAR)
+    minutes = minutes - years * MINS_PER_YEAR
+    let months = Math.floor(minutes / MINS_PER_MONTH)
+    minutes = minutes - months * MINS_PER_MONTH
+    let weeks = Math.floor(minutes / MINS_PER_WEEK)
+    minutes = minutes - weeks * MINS_PER_WEEK
+    let days = Math.floor(minutes / MINS_PER_DAY)
+    minutes = minutes - days * MINS_PER_DAY
+    return years + " año(s) " + months + " mes(es) " + weeks + " semana(s) " + days + " día(s) " + minutes + " minuto(s)"
+    //return hrData; // 1 year, 2 months, 2 week, 2 days, 12 minutes
+}
 
 }

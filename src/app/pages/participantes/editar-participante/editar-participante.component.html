@@ -1,6 +1,6 @@
 <div class="modal-header modal-dialog-centered">
     <div style="text-align: center;">
-      <h4 class="modal-title" id="modal-basic-title">Registro de un nuevo juego</h4>
+      <h4 class="modal-title" id="modal-basic-title">Edición de un jugador</h4>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="cerrar()">
       <span aria-hidden="true">×</span>
@@ -13,17 +13,29 @@
         <div class="form-group">
             <label class="form-control-label">Nombre:</label>
               <input formControlName="nombre" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese nombre del participante">
+              <div *ngIf="(crearParticipante.get('nombre').invalid && crearParticipante.get('nombre').touched) || crearParticipante.get('nombre').dirty">
+                <small class="text-danger" *ngIf="crearParticipante.get('nombre').errors?.required">*Este campo es requerido.</small>
+              </div>
           </div>
     
           <div class="form-group">
             <label class="form-control-label">Correo:</label>
               <input formControlName="correo" type="name" class="form-control" id="exampleFormControlInput2" placeholder="Ingrese correo del participante">
+              <div *ngIf="(crearParticipante.get('correo').invalid && crearParticipante.get('correo').touched) || crearParticipante.get('correo').dirty">
+                <small class="text-danger" *ngIf="crearParticipante.get('correo').errors?.required">*Este campo es requerido.</small>
+              </div>
+              <div *ngIf="(crearParticipante.get('correo').invalid && crearParticipante.get('correo').touched) || crearParticipante.get('correo').dirty">
+                <small class="text-danger" *ngIf="crearParticipante.get('correo').errors?.email">Correo no válido.</small>
+              </div>
           </div>
 
           <div class="form-group">
             <!-- class = "crearJuego.controls['intentos'].hasError('required')? 'form-control-label' : 'form-control is-invalid'" -->
             <label class="form-control-label">Celular:</label>
-             <input formControlName="celular" type="name" placeholder="Regular" class = "form-control">
+             <input formControlName="celular" type="name" placeholder="Ingese el número de celular del participante" class = "form-control">
+          </div>
+          <div *ngIf="(crearParticipante.get('celular').invalid && crearParticipante.get('celular').touched) || crearParticipante.get('celular').dirty">
+            <small class="text-danger" *ngIf="crearParticipante.get('celular').errors?.pattern || crearParticipante.get('celular').errors?.required">El campo es requerido, admite solo números [0 - 9] y solo debe tener 8 dígitos</small>
           </div>
       </div>
     </form>

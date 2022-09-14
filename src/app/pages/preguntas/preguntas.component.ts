@@ -50,7 +50,7 @@ export class PreguntasComponent implements OnInit {
   }
 
   updatePreguntaPagina(){
-    console.log("si me llamaronnn");
+    //console.log("si me llamaronnn");
     this.getPreguntas();
   }
 

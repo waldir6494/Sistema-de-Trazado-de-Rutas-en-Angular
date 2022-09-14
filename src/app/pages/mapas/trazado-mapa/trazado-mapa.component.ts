@@ -224,7 +224,7 @@ export class TrazadoMapaComponent implements OnInit {
         this.updRuta.idRuta=id;
         this.actualizarTodasRutas();
       },(error)=>{
-          console.log(error);
+          //console.log(error);
           alert('Ocurrio un error en mostrar jugadores');
       });
   }
@@ -233,14 +233,14 @@ export class TrazadoMapaComponent implements OnInit {
     this.tramaService.actualizarRutas(this.updRuta).subscribe((data : any)=>{
       alert('Se modifico de manera correcta');
       }, (error) => {
-      console.log(error);
+      //console.log(error);
       alert('Ocurrio un error en actualizar ruta');
     });
   }
 
   reiniciarTodo(){
     this.puntoService.eliminarPuntos(this.idJuego).subscribe((data : any)=>{
-      console.log(data);
+      //console.log(data);
       window.location.reload();
     });
   }
@@ -266,7 +266,7 @@ export class TrazadoMapaComponent implements OnInit {
         this.markerList.push(newMarker);
 
       }
-      console.log(this.markerList);
+      //console.log(this.markerList);
       this.cantidadPermitido = response[1].Total;
       this.mostrarTramaPorIdJuego(idJuego);
       this.spinner.stop(spinnerRef);
@@ -305,7 +305,7 @@ export class TrazadoMapaComponent implements OnInit {
     mostrarTramaPorIdJuego(idJuego: number){
       this.tramaService.getTramasPorIdJuego(idJuego).subscribe((data : any)=>{
           this.tramaBD = data;
-          console.log(data);
+          //console.log(data);
           for (var i =0; i< this.tramaBD.length; i++) {
             let route: Route = {
             startPoint:this.buscarPuntoID(this.tramaBD[i].idPuntoOrigen),
@@ -327,7 +327,7 @@ export class TrazadoMapaComponent implements OnInit {
           this.alert.start("¡Se guardó la trama de manera correcta!", 'success');
           this.enableMarkers();
          }, (error) => {
-            console.log(error);
+            //console.log(error);
             this.spinner.stop(spinnerRef);
             this.alert.start("Ocurrió un error al guardar la trama, intentelo más tarde.", 'error');
             this.enableMarkers();
@@ -368,7 +368,7 @@ export class TrazadoMapaComponent implements OnInit {
 
     showMarkers(){
       for (var i = this.markerList.length - 1; i >= 0; i--) {
-        console.log(i+"\t"+this.markerList[i].latitude +"\t"+this.markerList[i].longitude);
+        //console.log(i+"\t"+this.markerList[i].latitude +"\t"+this.markerList[i].longitude);
       }
     }
     setMarkerLabel(){
@@ -377,11 +377,11 @@ export class TrazadoMapaComponent implements OnInit {
    
       this.letter=Number(this.letter)+1+"";
    
-      console.log(this.currentLatitude +"\t " +this.currentLongitude +"\t"+ this.letter);
+      //console.log(this.currentLatitude +"\t " +this.currentLongitude +"\t"+ this.letter);
     }
 
   mapDragEnd(event){
-    console.log(event.coords);
+    //console.log(event.coords);
   }
 
   markerClic(event){
@@ -389,12 +389,12 @@ export class TrazadoMapaComponent implements OnInit {
       this.alert.start("No es posible editar el mapa cuando ya se generaron las rutas.", 'error');
       return;
     }
-    console.log(event.label);
-    console.log("DISABLE MARKERS");
+    //console.log(event.label);
+    //console.log("DISABLE MARKERS");
     //this.marKerEditable=false;
     this.disableEditableMarker();
      if (!this.marKerEditable) {
-       console.log("click en marcador");
+       //console.log("click en marcador");
       this.currentLatitude = event.latitude;
       this.currentLongitude = event.longitude;
             if (this.startPointState) {
@@ -414,7 +414,7 @@ export class TrazadoMapaComponent implements OnInit {
               this.valorCasilla=event.label;
               this.startPointState=false;
               this.endPointState=true;
-              console.log("startPoint TRUE");
+              //console.log("startPoint TRUE");
             }else {
               this.newMarkerEnd = {
                 id:event.id,
@@ -432,7 +432,7 @@ export class TrazadoMapaComponent implements OnInit {
               }else{
                 this.startPointState=true;
                 this.endPointState=false;
-                console.log("startPoint FALSE");
+                //console.log("startPoint FALSE");
                 this.saveRoute();
               }
               
@@ -450,7 +450,7 @@ export class TrazadoMapaComponent implements OnInit {
   }
 
   saveRoute(){
-    console.log("si llegue al metodo guardar ruta");
+    //console.log("si llegue al metodo guardar ruta");
     
     const pointA = new google.maps.LatLng(this.newMarkerStart.latitude,this.newMarkerStart.longitude);
     const pointB = new google.maps.LatLng(this.newMarkerEnd.latitude,this.newMarkerEnd.longitude);
@@ -499,9 +499,22 @@ export class TrazadoMapaComponent implements OnInit {
       this.alert.start(`Primero debes generar almenos una pregunta`, 'error');
       return;
     }
+
     if(this.cantidadNodo == 0){
   
-      this.alert.start(`La cantidad de nodos no puede ser 0`, 'error');
+      this.alert.start(`La cantidad de puntos a recorrer no puede ser 0.`, 'error');
+      return;
+    }
+
+    if(this.markerList.length < 4){
+  
+      this.alert.start(`Debe establecer almenos 4 marcadores en el mapa.`, 'error');
+      return;
+    }
+
+    if(this.routeList.length < 3){
+  
+      this.alert.start(`Debe establecer almenos 3 rutas en el mapa.`, 'error');
       return;
     }
     if(this.cantidadNodo > this.cantidadPermitido){

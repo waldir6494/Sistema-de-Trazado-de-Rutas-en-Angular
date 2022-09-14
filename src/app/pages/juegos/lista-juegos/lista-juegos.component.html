@@ -5,13 +5,13 @@
         <thead class="thead-light">
           <tr>
             <th scope="col">N°</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Fecha de Inicio</th>
-            <th scope="col">Fecha de Finalización</th>
-            <th scope="col">Tiempo</th>
-            <th scope="col">Intentos Permitidos</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" class ="center-table-elements">Nombre</th>
+            <th scope="col" class ="center-table-elements">Fecha de Inicio</th>
+            <th scope="col" class ="center-table-elements">Fecha de Finalización</th>
+            <th scope="col" class ="center-table-elements">Duración</th>
+            <th scope="col" class ="center-table-elements">Intentos Permitidos</th>
+            <th scope="col" class ="center-table-elements">Estado</th>
+            <th scope="col" class ="center-table-elements">Acciones</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -21,10 +21,10 @@
                   <td>
                       {{juegosPadre.from + indx}}
                   </td>
-                  <td>
+                  <td class ="center-table-elements">
                       {{ juego.NombreJuego }}
                   </td>
-                  <td>
+                  <td class ="center-table-elements">
                       {{ juego.Inicio }}
                   </td>
               <!-- <td>
@@ -38,16 +38,21 @@
                   <i class="bg-success"></i> completed
               </span>
               </td> -->
-                  <td>
+                  <td class ="center-table-elements">
                       {{ juego.Fin }}
                   </td>
-                  <td>
+                  <!--<td>
                       {{ juego.Tiempo }}
+                  </td>-->
+
+                  <td class ="center-table-elements">
+                    {{ hallarDiferencia(juego.Inicio, juego.Fin) }}
                   </td>
-                  <td>
+
+                  <td class ="center-table-elements">
                       {{ juego.Intentos }}
                   </td>
-                  <td>
+                  <td class ="center-table-elements">
                       <ng-contanier *ngIf = "juego.Cerrado == 0">
                           <span class="badge badge-dot mr-4">
                               <i class="bg-warning"></i> En proceso
@@ -62,7 +67,7 @@
                       
                   </td>
 
-                  <td>
+                  <td class ="center-table-elements">
                       <!-- Boton para editar -->
                       <div class = "d-flex justify-content-around">
                       <button type="button" class="btn-sm btn-outline-primary" (click) = "editarJuego(juego)">

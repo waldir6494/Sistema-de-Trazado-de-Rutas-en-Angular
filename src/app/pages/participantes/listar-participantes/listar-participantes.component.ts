@@ -75,7 +75,7 @@ export class ListarParticipantesComponent implements OnInit {
 
   ngOnChanges() {
     // create header using child_id
-    console.log("esto cambio cuentas", this.cantidadDatos);
+    //console.log("esto cambio cuentas", this.cantidadDatos);
     if(this.cantidadDatos != this.jugadoresPadre.length){
       this.cantidadDatos = this.jugadoresPadre.length;
       this.tableForm = this.fb.group({
@@ -83,19 +83,19 @@ export class ListarParticipantesComponent implements OnInit {
       });
       this.setLineasForm();
     }
-    console.log("esto cambio", this.jugadoresPadre);
+    //console.log("esto cambio", this.jugadoresPadre);
   }
   editarJugador(jugador:Jugador){
 
     const ref = this.modalService.open(EditarParticipanteComponent, {ariaLabelledBy: 'modal-basic-title', centered: true});
     ref.componentInstance.jugadorActual = jugador;
     ref.result.then((result) => {
-      console.log(result);
+      //console.log(result);
       if(result == ESTADO_MODAL_CORRECTO){
         //this.getJuegos();
         this.updateJugadorPagina.emit();
         this.alert.start("¡Los cambios se guardaron de manera correcta!", 'success');
-        console.log("recargue la paggg");
+        //console.log("recargue la paggg");
       }
       
       if(result == ESTADO_MODAL_ERROR){
@@ -106,17 +106,17 @@ export class ListarParticipantesComponent implements OnInit {
         this.alert.start("Este correo ya está registrado en este juego", 'error');
       }
     }, (reason) => {
-      console.log("cerre mal");
+      //console.log("cerre mal");
       
       /* this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; */
     });
     /* const spinnerRef = this.spinner.start("pruebaCarga"); */
-    console.log("deberia salir el spinner porque me");
+    //console.log("deberia salir el spinner porque me");
 
   }
 
   eliminarJugador(jugador:Jugador){
-    console.log("esto saco del html: ", jugador);
+    //console.log("esto saco del html: ", jugador);
     const spinnerRef = this.spinner.start("Eliminando.....");
     this.jugadorService.deleteJugador(jugador.idJugador).subscribe(
       (res) => {
@@ -136,7 +136,7 @@ export class ListarParticipantesComponent implements OnInit {
       },
     );
 
-    console.log("deberia salir la alerta");
+    //console.log("deberia salir la alerta");
   }
 
   seleccionarTodo(){
@@ -162,7 +162,7 @@ export class ListarParticipantesComponent implements OnInit {
       }
       contador++;
     });
-    console.log("ids seleccionados: ", notificados);
+    //console.log("ids seleccionados: ", notificados);
     const spinnerRef = this.spinner.start("Notificando.....");
     this.jugadorService.notificar(notificados).subscribe(
       (res) => {
@@ -196,10 +196,10 @@ export class ListarParticipantesComponent implements OnInit {
       contador++;
     });
     if(verificador > 0){
-      console.log("contadorrrrrr true", verificador);
+      //console.log("contadorrrrrr true", verificador);
       this.activarBotonNotificar.emit();
     }else{
-      console.log("contadorrrrrr false", verificador);
+      //console.log("contadorrrrrr false", verificador);
       this.desactivarBotonNotificar.emit();
     }
   }

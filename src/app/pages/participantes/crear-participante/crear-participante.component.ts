@@ -33,8 +33,8 @@ export class CrearParticipanteComponent implements OnInit {
   private inicializarForm(){
     this.crearParticipante = this.fb.group({
       nombre: [null, Validators.required],
-      correo: [null, Validators.required],
-      celular: [null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(1)]]
+      correo: [null, [Validators.required, Validators.email]],
+      celular: [null, [Validators.required, Validators.pattern("^[0-9]{8}$")]]
     });
 
     this.crearParticipante.valueChanges.subscribe((productosTabla) => {

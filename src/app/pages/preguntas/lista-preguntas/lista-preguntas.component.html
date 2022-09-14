@@ -1,4 +1,5 @@
-<div class = "large-table">
+<ng-container *ngIf="preguntasPadre.from">
+  <div class = "large-table">
     <div class="table-responsive altura-tabla">
       <table class="table align-items-center table-flush">
         <thead class="thead-light">
@@ -120,4 +121,8 @@
   
       </ul>
     </nav>
-  </div>  
+  </div>
+</ng-container>
+<ng-container *ngIf="!preguntasPadre.from">
+  <h2 class="text-center text-danger altura-tabla">No hay preguntas registradas</h2>
+</ng-container>  

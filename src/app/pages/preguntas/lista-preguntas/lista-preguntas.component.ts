@@ -48,7 +48,7 @@ export class ListaPreguntasComponent implements OnInit {
         //this.getPreguntas();
         this.alert.start("¡Se actualizo la pregunta de manera correcta!", 'success');
         this.updatePreguntaPagina.emit();
-        console.log("recargue la paggg");
+        //console.log("recargue la paggg");
       }
       
       if(result == ESTADO_MODAL_ERROR){

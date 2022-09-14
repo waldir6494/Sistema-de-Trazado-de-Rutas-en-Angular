@@ -14,7 +14,7 @@
           <div class="form-group">
             <label class="form-control-label">Nombre del juego:</label>
            <!--  <ng-container *ngIf="!crearJuego.controls['nombre'].hasError('required')"> -->
-              <input formControlName="nombre" type="name" class="form-control" id="exampleFormControlInput1" placeholder="Juego de prueba">
+              <input formControlName="nombre" type="name" class="form-control" id="exampleFormControlInput1">
          <!--    </ng-container> -->
             <!-- <ng-container *ngIf="crearJuego.controls['nombre'].hasError('required')">
               <input formControlName="nombre" type="name" class = "form-control is-invalid" id="exampleFormControlInput1" placeholder="Juego de prueba">
@@ -30,7 +30,7 @@
             <!-- class = "crearJuego.controls['intentos'].hasError('required')? 'form-control-label' : 'form-control is-invalid'" -->
             <label class="form-control-label">Intentos permitidos:</label>
             <!-- <ng-container *ngIf="!crearJuego.controls['intentos'].hasError('required') && !crearJuego.controls['intentos'].hasError('pattern')"> -->
-              <input formControlName="intentos" type="name" placeholder="Regular" class = "form-control">
+              <input formControlName="intentos" type="name" class = "form-control">
            <!--  </ng-container> -->
             <!-- <ng-container *ngIf="crearJuego.controls['intentos'].hasError('required') || crearJuego.controls['intentos'].hasError('pattern')">
               <input formControlName="intentos" type="name" placeholder="Cantidad de intentos" class = "form-control is-invalid">
@@ -73,7 +73,7 @@
             <label class="input-error-message">*La hora y fecha son requeridos.</label>
           </ng-container> -->
 
-          <div class="row">
+          <div class="row padd-text">
             <div class="col-lg-6">
               <div class="form-group">
                 <label class="form-control-label" for="input-email">Fecha de culminación:</label>

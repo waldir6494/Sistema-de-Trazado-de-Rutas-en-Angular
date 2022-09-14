@@ -31,7 +31,7 @@ export class ToolbarComponent implements OnInit {
         this.initForm();
         this.form.valueChanges.subscribe((juegoSeleccionado) => {
             this.setJuego(juegoSeleccionado.game);
-            console.log("nuevos cambio toolbar", juegoSeleccionado);
+            //console.log("nuevos cambio toolbar", juegoSeleccionado);
         });
 
         this.getJuegos();

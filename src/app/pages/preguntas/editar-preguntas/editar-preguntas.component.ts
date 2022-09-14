@@ -79,7 +79,7 @@ export class EditarPreguntasComponent implements OnInit {
     const spinnerRef = this.spinner.start("Consultando.....");
     this.preguntaService.getPregunta(this.id).subscribe(
       (res) => {
-          console.log("esta es la preguntaaaaaa", res);
+          //console.log("esta es la preguntaaaaaa", res);
           this.crearPregunta.controls['pregunta'].setValue(res.Pregunta);
           this.crearPregunta.controls['respuesta'].setValue(res.Respuesta);
           if(Number(res.Imagen) != 0){

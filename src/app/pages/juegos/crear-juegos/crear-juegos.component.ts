@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Juego } from 'src/app/@models/Juego/juego.model';
 import { AuthenticationService } from 'src/app/@services/Autenticacion/authentication.service';
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
-import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
+import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR, ESTADO_MODAL_EXISTE } from 'src/app/@constants/constants-global';
 import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crear-juegos',
@@ -14,6 +16,9 @@ import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-up
   styleUrls: ['./crear-juegos.component.scss'],
   providers: [AuthenticationService, JuegoService]
 })
+
+
+
 export class CrearJuegosComponent implements OnInit {
   public inicioDate:any;
   public finDate:any;
@@ -27,6 +32,7 @@ export class CrearJuegosComponent implements OnInit {
       public activeModal: NgbActiveModal,
       private fb: FormBuilder,
       private juegoService: JuegoService,
+      private alert: AlertService,
       private _toolbarUpdateService:ToolbarUpdateService,
       private authenticationService: AuthenticationService,
       private spinner: SpinnerService) { }
@@ -55,9 +61,6 @@ export class CrearJuegosComponent implements OnInit {
   }
 
   public guardar(){
-
-    let juego = new Juego();
-
     /* fecha y hora de inicio del juego */
     let fechaInicioLocal = this.crearJuego.controls['fechaInicio'].value;
     let horaInicioLocal = this.crearJuego.controls['horaInicio'].value;
@@ -66,6 +69,17 @@ export class CrearJuegosComponent implements OnInit {
     let fechaFinLocal = this.crearJuego.controls['fechaFin'].value;
     let horaFinLocal = this.crearJuego.controls['horaFin'].value;
 
+    let inicio: moment.Moment = moment(`${fechaInicioLocal.day}/${fechaInicioLocal.month}/${fechaInicioLocal.year} ${horaInicioLocal.hour}:${horaInicioLocal.minute}`, 'DD-MM-YYYY h:mm');
+    let fin: moment.Moment = moment(`${fechaFinLocal.day}/${fechaFinLocal.month}/${fechaFinLocal.year} ${horaFinLocal.hour}:${horaFinLocal.minute}`, 'DD-MM-YYYY h:mm');
+    
+    if(inicio.isBefore(fin)){
+      
+    }else{
+      this.alert.start("La fecha de inicio no puede ser menor que la culminación", 'error');
+      return;
+    }
+
+    let juego = new Juego();
     juego.idAdministrador = `${this.authenticationService.getIdUser()}`;
     juego.NombreJuego = this.crearJuego.controls['nombre'].value;
     juego.Intentos = this.crearJuego.controls['intentos'].value;

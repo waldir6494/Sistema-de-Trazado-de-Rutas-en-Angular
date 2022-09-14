@@ -48,8 +48,8 @@ export class MapaSeguimientoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("recibi estos:", this.ids);
-    console.log("recibi esto:", this.id);
+    //console.log("recibi estos:", this.ids);
+    //console.log("recibi esto:", this.id);
     this.ejecutarVista();
   }
 
@@ -122,7 +122,7 @@ export class MapaSeguimientoComponent implements OnInit {
     this.posicionesActualesTodos=data;
     console.log("asd",data);
       },(error)=>{
-          console.log(error);
+          //console.log(error);
           alert('Ocurrio un error ver posicion actual de todos');
        });
 
