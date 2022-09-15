@@ -451,7 +451,7 @@ export class TrazadoMapaComponent implements OnInit {
 
   saveRoute(){
     //console.log("si llegue al metodo guardar ruta");
-    
+    let verificarIgualdad: boolean = false;
     const pointA = new google.maps.LatLng(this.newMarkerStart.latitude,this.newMarkerStart.longitude);
     const pointB = new google.maps.LatLng(this.newMarkerEnd.latitude,this.newMarkerEnd.longitude);
    
@@ -462,17 +462,31 @@ export class TrazadoMapaComponent implements OnInit {
         endPoint:this.newMarkerEnd,
         distance:Distance
       }
-        this.routeList.push(route);
-        
-        let newTrama:Trama = {
-        idPuntoOrigen:this.buscarID(this.newMarkerStart),
-        idPuntoDestino:this.buscarID(this.newMarkerEnd),
-        Distancia:Distance
-      }
-     // console.log("id recibido"+"\t"+this.buscarID(this.puntoRespuesta));
-     //console.log("id recibido"+"\t"+this.buscarID(this.puntoRespuesta));
-     this.saveTrama(newTrama);
+    
+      this.routeList.forEach(element => {
+        if(element.startPoint.latitude == route.startPoint.latitude && element.startPoint.longitude == route.startPoint.longitude){
+          if(element.endPoint.latitude == route.endPoint.latitude && element.endPoint.longitude == route.endPoint.longitude){
+            verificarIgualdad = true;
 
+          }
+        }
+      });
+      if(verificarIgualdad){
+        this.enableMarkers();
+        this.alert.start("Este tramo ya ha sido graficado.", 'error');
+        return;
+      }else{
+          this.routeList.push(route);
+          
+          let newTrama:Trama = {
+          idPuntoOrigen:this.buscarID(this.newMarkerStart),
+          idPuntoDestino:this.buscarID(this.newMarkerEnd),
+          Distancia:Distance
+        }
+      // console.log("id recibido"+"\t"+this.buscarID(this.puntoRespuesta));
+      //console.log("id recibido"+"\t"+this.buscarID(this.puntoRespuesta));
+      this.saveTrama(newTrama);
+      }
       //  console.log("PUNTOS GUARDADOS"+"\t"+Distance);
   }
 
@@ -506,9 +520,9 @@ export class TrazadoMapaComponent implements OnInit {
       return;
     }
 
-    if(this.markerList.length < 4){
+    if(this.markerList.length <= 2){
   
-      this.alert.start(`Debe establecer almenos 4 marcadores en el mapa.`, 'error');
+      this.alert.start(`Debe establecer almenos 3 marcadores(nodos) en el mapa.`, 'error');
       return;
     }
 

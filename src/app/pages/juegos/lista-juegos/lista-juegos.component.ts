@@ -8,6 +8,8 @@ import { EditarJuegosComponent } from 'src/app/pages/juegos/editar-juegos/editar
 import { ESTADO_MODAL_CORRECTO, ESTADO_MODAL_ERROR } from 'src/app/@constants/constants-global';
 import { JuegoService } from 'src/app/@services/Juego/juego.service';
 import { ToolbarUpdateService } from 'src/app/@services/Autenticacion/toolbar-update.service';
+import * as moment from 'moment';
+import { decimalDigest } from '@angular/compiler/src/i18n/digest';
 
 @Component({
   selector: 'app-lista-juegos',
@@ -98,6 +100,40 @@ export class ListaJuegosComponent implements OnInit {
     let fechaFinParceado = new Date(fechaFin);
     return this.diff_minutes(fechaFinParceado, fechaInicioParceado);
 
+  }
+
+  verificarFecha(dateCheckInicio:string, dateCheckFinal:string, state:number){
+    let date = moment().format('YYYY-MM-DD h:mm');
+    console.log(date);
+    let fechaRecibidaInicio: moment.Moment = moment(dateCheckInicio, 'YYYY-MM-DD h:mm');
+    let fechaRecibidaFin: moment.Moment = moment(dateCheckFinal, 'YYYY-MM-DD h:mm');
+    console.log(fechaRecibidaInicio);
+    console.log(fechaRecibidaFin);
+    console.log(fechaRecibidaInicio.isBefore(date) && fechaRecibidaFin.isBefore(date));
+    console.log(fechaRecibidaFin.isBefore(date));
+    console.log(fechaRecibidaInicio.isBefore(date) && fechaRecibidaFin.isAfter(date));
+    /*if(fechaRecibidaInicio.isBefore(date) && fechaRecibidaFin.isBefore(date)){
+      console.log('retorne 1');
+      return 1;
+    }*/
+    if(state == 1){
+      console.log('retorne 2');
+      return 2;
+    }
+    if(fechaRecibidaInicio.isAfter(date)){
+      console.log('retorne 1');
+      return 1;
+    }
+
+    if(fechaRecibidaFin.isBefore(date)){
+      console.log('retorne 2');
+      return 2;
+    }
+    
+    if(fechaRecibidaInicio.isBefore(date) && fechaRecibidaFin.isAfter(date)){
+      console.log('retorne 3');
+      return 3;
+    }
   }
 
   diff_minutes(fecha1, fecha12) 

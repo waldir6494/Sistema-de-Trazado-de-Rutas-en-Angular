@@ -35,7 +35,7 @@
             <label class="form-control-label">Celular:</label>
              <input formControlName="celular" type="name" placeholder="Ingese el número de celular del participante" class = "form-control">
             <div *ngIf="(crearParticipante.get('celular').invalid && crearParticipante.get('celular').touched) || crearParticipante.get('celular').dirty">
-              <small class="text-danger" *ngIf="crearParticipante.get('celular').errors?.pattern || crearParticipante.get('celular').errors?.required">El campo es requerido, admite solo números [0 - 9] y solo debe tener 8 dígitos</small>
+              <small class="text-danger" *ngIf="crearParticipante.get('celular').errors?.pattern || crearParticipante.get('celular').errors?.required">El campo es requerido, admite solo números [0 - 9] y solo debe tener 9 dígitos</small>
             </div>
           </div>
       </div>

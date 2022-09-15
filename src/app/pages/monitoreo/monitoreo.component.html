@@ -3,12 +3,12 @@
       <div class="header-body">
       </div>
     </div>
-  </div>
+</div>
   <!-- Page content -->
-  
-<div class="container-fluid mt--7">
-    <div class="row mt-2">
-        <div class="col">
+  <ng-container *ngIf="tablaMonitoreo?.length > 0">
+    <div class="container-fluid mt--7">
+        <div class="row mt-2">
+            <div class="col">
             <!-- <div class="card shadow">
                 <app-mapa-seguimiento ></app-mapa-seguimiento>
             </div> -->
@@ -81,4 +81,8 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+</ng-container>
+<ng-container *ngIf="tablaMonitoreo?.length == 0">
+  <h2 class="text-center text-danger altura-tabla">Para ver estas opciones primero debe notificar a los estudiantes</h2>
+</ng-container>

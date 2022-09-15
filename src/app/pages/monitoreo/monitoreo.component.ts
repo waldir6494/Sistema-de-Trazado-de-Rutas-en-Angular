@@ -100,7 +100,7 @@ export class MonitoreoComponent implements OnInit {
        downloadLink.click();
        this.spinner.stop(spinnerRef);
      }, (error) => {
-       
+      this.spinner.stop(spinnerRef);
        this.alert.start("Ocurrió un error al descargar el documento excel, intentelo mas tarde.", 'error');
      });
  }

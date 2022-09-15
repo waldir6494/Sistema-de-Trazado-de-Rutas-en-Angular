@@ -53,15 +53,21 @@
                       {{ juego.Intentos }}
                   </td>
                   <td class ="center-table-elements">
-                      <ng-contanier *ngIf = "juego.Cerrado == 0">
+                      <ng-contanier *ngIf = "verificarFecha(juego.Inicio, juego.Fin, juego.Cerrado) == 1">
+                        <span class="badge badge-dot mr-4">
+                            <i class="bg-warning"></i> El juego no ha empezado
+                        </span>
+                    </ng-contanier>
+
+                      <ng-contanier *ngIf = "verificarFecha(juego.Inicio, juego.Fin, juego.Cerrado) == 3">
                           <span class="badge badge-dot mr-4">
                               <i class="bg-warning"></i> En proceso
                           </span>
                       </ng-contanier>
 
-                      <ng-contanier *ngIf = "juego.Cerrado == 1">
+                      <ng-contanier *ngIf = "verificarFecha(juego.Inicio, juego.Fin, juego.Cerrado) == 2">
                           <span class="badge badge-dot">
-                              <i class="bg-success"></i> Culminado
+                              <i class="bg-success"></i> Finalizado
                           </span>
                       </ng-contanier>
                       
