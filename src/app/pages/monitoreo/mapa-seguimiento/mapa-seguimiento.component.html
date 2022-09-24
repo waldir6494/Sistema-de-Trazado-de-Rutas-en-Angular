@@ -1,23 +1,38 @@
 <div class="modal-header modal-dialog-centered">
     <div style="text-align: center;">
-      <h4 class="modal-title" id="modal-basic-title">Registro de un nuevo juego</h4>
+      <h4 class="modal-title" id="modal-basic-title">Seguimiento de Jugador</h4>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="cerrar()">
       <span aria-hidden="true">×</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" >
     <!-- <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude">
     </agm-map> -->
-
-    <agm-map [zoom]="19" [latitude]="latitude" [longitude]="longitude" >
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-success" (click)="actualizarPosicion()">
+        Actualizar
+      </button>
+    </div>
+    <agm-map 
+      [zoom]="19" 
+      [latitude]="lat" 
+      [longitude]="lng" 
+      (centerChange)="centerChange($event, $event)">
 
       <agm-marker *ngIf="jugadorActualPosicion"
           [latitude]=jugadorActual.latitude
           [longitude]=jugadorActual.longitude
-          [iconUrl]=iconMap.iconUrl
+          [iconUrl]="
+          {
+            url: './assets/img/iconMap/student.png',
+            scaledSize: {
+                width: 40,
+                height: 60
+            }
+        }"
           [visible]=true
-          ></agm-marker>
+      ></agm-marker>
     
     
       <agm-marker *ngIf="verUno" >
@@ -52,7 +67,14 @@
         <agm-marker *ngFor="let posiciones of posicionesActualesTodos"
           [latitude]=posiciones.Latitud
           [longitude]=posiciones.Longitud
-          [iconUrl]=iconMap.iconUrl
+          [iconUrl]="
+          {
+            url: './assets/img/iconMap/student.png',
+            scaledSize: {
+                width: 40,
+                height: 60
+            }
+        }"
           [visible]=true
           ></agm-marker>
     

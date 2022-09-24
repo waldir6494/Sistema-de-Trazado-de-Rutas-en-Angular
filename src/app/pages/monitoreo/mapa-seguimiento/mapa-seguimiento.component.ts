@@ -3,6 +3,7 @@ import {AgmCoreModule, GoogleMapsAPIWrapper, LatLng, LatLngLiteral} from '@agm/c
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MonitoreoService } from 'src/app/@services/Monitoreo/monitoreo.service';
 import { Marker } from 'src/app/@models/Mapas/marker';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 declare const google: any;
 @Component({
   selector: 'app-mapa-seguimiento',
@@ -14,8 +15,8 @@ export class MapaSeguimientoComponent implements OnInit {
   @Input() public ids: any;
   @Input() public id: any;
 
-  latitude = -16.398839298947458;
-	longitude = -71.53687523018044;
+  lat: number = -16.398839298947458;
+	lng: number = -71.53687523018044;
   posicionesActualesTodos:any;
   jugadorActualPosicion:boolean=false;
   TodasRutas:Marker[][]=[];
@@ -44,10 +45,19 @@ export class MapaSeguimientoComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private monitoreoService: MonitoreoService
+    private monitoreoService: MonitoreoService,
+    private alert: AlertService
   ) { }
 
   ngOnInit(): void {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.lat = position.coords.latitude;
+      this.lng = position.coords.longitude;
+    },
+    async (error) => {
+      this.alert.start("Active la ubicación para mejorar la experiencia.", 'error');
+    }
+    )
     //console.log("recibi estos:", this.ids);
     //console.log("recibi esto:", this.id);
     this.ejecutarVista();
@@ -55,9 +65,11 @@ export class MapaSeguimientoComponent implements OnInit {
 
   ejecutarVista(){
     if(this.id){
+      console.log("entre a jugador especifico");
       this.verPosicionActualJugador(this.id);
       this.verPuntosJugador(this.id);
     }else{
+      console.log("entre a jugador general");
       this.verTodasRutas();
       this.verPosicionActualTodosJugadores();
     }
@@ -106,8 +118,9 @@ export class MapaSeguimientoComponent implements OnInit {
       	}
         this.jugadorActual.latitude=data.Latitud;
         this.jugadorActual.longitude=data.Longitud;
-        this.latitude=data.Latitud;
-        this.longitude=data.Longitud;
+        this.lat=data.Latitud;
+        this.lng=data.Longitud;
+        this.centerChange(this.lat, this.lng);
         this.verUno=true;
       },(error)=>{
           console.log(error);
@@ -137,4 +150,16 @@ export class MapaSeguimientoComponent implements OnInit {
     return parseFloat(coordenada);
   }
 
+  ngAfterViewInit(){
+    this.centerChange(this.lat, this.lng);
+  }
+  centerChange(lat: any, lng:any) {
+      this.lat = lat;
+      this.lng = lng;
+
+  }
+  
+  actualizarPosicion(){
+    this.verPosicionActualJugador(this.id);
+  }
 }

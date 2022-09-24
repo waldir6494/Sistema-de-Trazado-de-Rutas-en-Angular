@@ -82,6 +82,10 @@ export class ListarParticipantesComponent implements OnInit {
         participantesCheck: this.fb.array([]),
       });
       this.setLineasForm();
+      this.tableForm.get('participantesCheck').valueChanges.subscribe((data) => {
+        this.revisarSeleccionados();
+        console.log('data del reactive form de formulariooooo:', data);
+      });
     }
     //console.log("esto cambio", this.jugadoresPadre);
   }
