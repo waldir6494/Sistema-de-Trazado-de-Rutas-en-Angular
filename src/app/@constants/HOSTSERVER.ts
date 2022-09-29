@@ -1,1 +1,1 @@
-export const HOSTSERVER = 'https://demo-logistica-pnp.relengcorp.com/api';
+export const HOSTSERVER = 'https://services.evaluacionmat.ga/api';
