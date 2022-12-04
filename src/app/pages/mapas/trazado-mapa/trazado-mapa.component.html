@@ -45,6 +45,9 @@
                     </p>
                   </div>
                 </div>
+                <div class="d-flex justify-content-end">
+                    <button (click)=eliminarPlano() type="button" class="btn btn-outline-danger">REINICIAR MAPA</button>
+                </div>
             </div>
 
         </div>
@@ -138,7 +141,7 @@
     </ng-container>
 
 <div class="alert-dismissible alert-danger hr" role="alert-info" *ngIf="marKerEditable">
-    <strong>Alerta: </strong> Una vez generada las rutas ya no hay forma de reiniciar el mapa.
+    <strong>Alerta: </strong> Si ha registrado participantes el mapa no podrá ser reiniciado.
 </div>
 <ng-container *ngIf="!cantidadRutasGeneral">
     <div class="alert-dismissible alert-warning" role="alert-info" *ngIf="marKerEditable">

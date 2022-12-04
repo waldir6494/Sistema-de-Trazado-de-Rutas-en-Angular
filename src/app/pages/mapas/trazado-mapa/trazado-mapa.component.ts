@@ -18,6 +18,7 @@ import { AuthenticationService } from 'src/app/@services/Autenticacion/authentic
 import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 declare const google: any;
 
 @Component({
@@ -94,7 +95,8 @@ export class TrazadoMapaComponent implements OnInit {
     private authenticationService: AuthenticationService, 
     private tramaService: TramaService,
     private spinner: SpinnerService,
-    private alert: AlertService
+    private alert: AlertService,
+    private _router: Router
     ) { 
 
     }
@@ -683,6 +685,27 @@ export class TrazadoMapaComponent implements OnInit {
 
   transformar(coordenada:any){
     return parseFloat(coordenada);
+  }
+
+  eliminarPlano(){
+    const spinnerRef = this.spinner.start("Reiniciando mapa....");
+    this.tramaService.eliminarMapa(this.idJuego).subscribe((data: any) => {
+    
+      this.spinner.stop(spinnerRef);
+      this.alert.start("¡Se ha reiniciado el mapa de manera correcta!", 'success');
+      this.reloadComponent();
+    }, (error) => {
+      this.spinner.stop(spinnerRef);
+      this.alert.start("Este juego ya tiene usuarios notificados, no puede reiniciarse.", 'error');
+      console.log(error);
+    });
+
+  }
+
+  reloadComponent() {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this._router.onSameUrlNavigation = 'reload';
+    this._router.navigate(['/mapas']);
   }
 
 }

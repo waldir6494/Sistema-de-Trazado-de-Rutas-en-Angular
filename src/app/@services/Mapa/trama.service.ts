@@ -88,6 +88,13 @@ export class TramaService {
                     .pipe(catchError(this.handleError));
     }
 
+    eliminarMapa(id:number): Observable<any>{
+        const url = `${this.host}/mapa/reiniciar/${id}`;
+        return this.http
+                    .post<any>(url, { headers: this.headers })
+                    .pipe(catchError(this.handleError));
+    }
+
     private handleError(error: any): Promise<any> {
         if (error.error.IdError === 4011000) {
             return Promise.reject(error.error);
